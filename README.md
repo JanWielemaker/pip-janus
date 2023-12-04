@@ -2,7 +2,7 @@
 
 ## XSB conversion
 
-    pandoc -f latex -t markdown janus.tex -o janus-xsb.md
+    pandoc -f latex -t gfm janus-man.tex -o janus-xsb.md
 
 ## SWI conversion
 
