@@ -6,8 +6,8 @@ SWI-Prolog Python interface
 
 <div class="author">
 
-Jan Wielemaker  
-SWI-Prolog Solutions b.v.  
+Jan Wielemaker
+SWI-Prolog Solutions b.v.
 E-mail: <jan@swi-prolog.org>
 
 </div>
@@ -271,26 +271,26 @@ developed for the WASM (Web Assembly) version. That is
   - A di-directional data conversion is defined. See [section
     2](#sec:2).
   - A Prolog predicate
-    <span id="idx:pycall2:1"></span>[py\_call/2](#py_call/2) to call
+    <span id="idx:pycall2:1"></span>[py_call/2](#py_call/2) to call
     Python functions and methods, as well as access and set object
     attributes.
   - A non-deterministic Prolog predicate
-    <span id="idx:pyiter2:2"></span>[py\_iter/2](#py_iter/2) to
+    <span id="idx:pyiter2:2"></span>[py_iter/2](#py_iter/2) to
     enumerate a Python *iterator*.
-  - A Python function [janus.query\_once()](#janus.query_once\(\)) to
+  - A Python function [janus.query_once()](#janus.query_once\(\)) to
     evaluate a Prolog query as
     <span id="idx:once1:3"></span><span class="pred-ext">once/1</span>,
     providing input to Prolog variables using a Python dict and return a
     Python dict with bindings for each Prolog output variable.
-  - A python function [janus.apply\_once()](#janus.apply_once\(\)) to
+  - A python function [janus.apply_once()](#janus.apply_once\(\)) to
     call a Prolog predicate with `N` *input arguments* followed by
     exactly one *output argument*. This provides a faster and easier to
     use interface to compliant predicates.
   - Python iterators [janus.query()](#janus.query\(\)) and
     [janus.apply()](#janus.apply\(\)) that provide access to
     non-deterministic Prolog predicates using the calling conventions of
-    [janus.query\_once()](#janus.query_once\(\)) and
-    [janus.apply\_once()](#janus.apply_once\(\)).
+    [janus.query_once()](#janus.query_once\(\)) and
+    [janus.apply_once()](#janus.apply_once\(\)).
 
 The API of Janus is the result of discussions between the SWI-Prolog,
 XSB and Ciao lang teams. It will be reflected in a PIP (*Prolog
@@ -323,8 +323,8 @@ translated to Prolog atoms and the latter to Prolog strings, but,
 because we do not know which strings act as identifier and which as just
 text, this is not possible. The second is to improve compatibility with
 Prolog systems that do not support strings. Note that
-<span id="idx:pycall3:4"></span>[py\_call/3](#py_call/3) and
-<span id="idx:pyiter3:5"></span>[py\_iter/3](#py_iter/3) provide the
+<span id="idx:pycall3:4"></span>[py_call/3](#py_call/3) and
+<span id="idx:pyiter3:5"></span>[py_iter/3](#py_iter/3) provide the
 option `py_string_as(string)` to obtain a string if this is desirable.
 
 |                |     |                                 |                                                                                                                          |
@@ -340,20 +340,20 @@ option `py_string_as(string)` to obtain a string if this is desirable.
 | Atom           | `⟵` | **enum.Enum()**                 | Name of Enum instance                                                                                                    |
 | Atom           | `⟷` | String                          |                                                                                                                          |
 | String         | `⟶` | String                          |                                                                                                                          |
-| \#(Term)       | `⟶` | String                          | *stringify* using <span id="idx:writecanonical1:6"></span><span class="pred-ext">write\_canonical/1</span> if not atomic |
+| \#(Term)       | `⟶` | String                          | *stringify* using <span id="idx:writecanonical1:6"></span><span class="pred-ext">write_canonical/1</span> if not atomic |
 | prolog(Term)   | `⟶` | [janus.Term()](#janus.Term\(\)) | Represents any Prolog term                                                                                               |
 | Term           | `⟵` | [janus.Term()](#janus.Term\(\)) |                                                                                                                          |
 | List           | `⟶` | List                            |                                                                                                                          |
 | List           | `⟵` | Sequence                        |                                                                                                                          |
 | List           | `⟵` | Iterator                        | Note that a Python *Generator* is an *Iterator*                                                                          |
-| py\_set(List)  | `⟺` | Set                             |                                                                                                                          |
+| py_set(List)  | `⟺` | Set                             |                                                                                                                          |
 | \-()           | `⟺` | ()                              | Python empty Tuple                                                                                                       |
 | \-(a,b, ... )  | `⟺` | (a,b, ... )                     | Python Tuples. Note that a Prolog *pair* `A-B` maps to a Python (binary) tuple.                                          |
 | Dict           | `⟺` | Dict                            |                                                                                                                          |
 | {k:v, ...}     | `⟺` | Dict                            | Compatibility when using `py_dict_as({}`)                                                                                |
 | {k:v, ...}     | `⟹` | Dict                            | Compatibility (see above)                                                                                                |
 | py({k:v, ...}) | `⟹` | Dict                            | Compatibility (see above)                                                                                                |
-| eval(Term)     | `⟹` | Object                          | Evaluate Term as first argument of <span id="idx:pycall2:7"></span>[py\_call/2](#py_call/2)                              |
+| eval(Term)     | `⟹` | Object                          | Evaluate Term as first argument of <span id="idx:pycall2:7"></span>[py_call/2](#py_call/2)                              |
 | `py_obj` blob  | `⟺` | Object                          | Used for any Python object not above                                                                                     |
 | Compound       | `⟶` | \-                              | for any term not above (type error)                                                                                      |
 
@@ -367,16 +367,16 @@ representation and may thus be slow.</span></sup>
 The conversion \#(Term) allows passing anything as a Python string. If
 `Term` is an atom or string, this is the same as passing the atom or
 string. Any other Prolog term is converted as defined by
-<span id="idx:writecanonical1:8"></span><span class="pred-ext">write\_canonical/1</span>.
+<span id="idx:writecanonical1:8"></span><span class="pred-ext">write_canonical/1</span>.
 The conversion `prolog(Term)` creates an instance of
 [janus.Term()](#janus.Term\(\)). This class encapsulates a copy of an
 arbitrary Prolog term. The SWI-Prolog implementation uses the
-**PL\_record()** and **PL\_recorded()** functions to store and retrieve
+**PL_record()** and **PL_recorded()** functions to store and retrieve
 the term. `Term` may be any Prolog term, including *blobs*, *attributed
 variables*. Cycles and subterm sharing in `Term` are preserved.
 Internally, [janus.Term()](#janus.Term\(\)) is used to represent Prolog
 exeptions that are raised during the execution of
-[janus.query\_once()](#janus.query_once\(\)) or
+[janus.query_once()](#janus.query_once\(\)) or
 [janus.query()](#janus.query\(\)).
 
 Python Tuples are array-like objects and thus map best to a Prolog
@@ -447,13 +447,13 @@ instance of `Span`, a sequence of `Token` instances that have the
 property `text`. The program below extracts the noun chunks of the input
 as a non-deterministic Prolog predicate. Note that we use
 `py_object(true)` to get the parsed document as a Python object. Next,
-we use <span id="idx:pyiter2:9"></span>[py\_iter/2](#py_iter/2) to
+we use <span id="idx:pyiter2:9"></span>[py_iter/2](#py_iter/2) to
 access the members of the Python *iterator* returned by
 `Doc.noun_chunks` as Python object references and finally we extract the
 text of each noun chunk as an atom. The SWI-Prolog (atom) garbage
 collector will take care of the `Doc` and `Span` Python objects.
 Immediate release of these objects can be enforced using
-<span id="idx:pyfree1:10"></span>[py\_free/1](#py_free/1).<sup>2<span class="fn-text">Janus
+<span id="idx:pyfree1:10"></span>[py_free/1](#py_free/1).<sup>2<span class="fn-text">Janus
 implementations are not required to implement Python object reference
 garbage collection.</span></sup>
 
@@ -494,21 +494,21 @@ embedded into Python using the Python package `janus-swi`, this library
 is provided either from Prolog or from the Python package.
 
 Normally, the Prolog user can simply start calling Python using
-[py\_call/2](#py_call/2) or friends. In special cases it may be needed
+[py_call/2](#py_call/2) or friends. In special cases it may be needed
 to initialize Python with options using
-[py\_initialize/3](#py_initialize/3) and optionally the Python search
-path may be extended using [py\_add\_lib\_dir/1](#py_add_lib_dir/1).
+[py_initialize/3](#py_initialize/3) and optionally the Python search
+path may be extended using [py_add_lib_dir/1](#py_add_lib_dir/1).
 
-  - <span class="pred-tag">\[det\]</span><span id="py_version/0">**py\_version**</span>  
+  - <span class="pred-tag">\[det\]</span><span id="py_version/0">**py_version**</span>
     Print version info on the embedded Python installation based on
     Python `sys.version`. If a Python *virtual environment* (venv) is
     active, indicate this with the location of this environment found.
 
-  - <span class="pred-tag">\[det\]</span><span id="py_call/1">**py\_call**(`+Call`)</span>  
-    <span class="pred-tag">\[det\]</span><span id="py_call/2">**py\_call**(`+Call,
-    -Return`)</span>  
-    <span class="pred-tag">\[det\]</span><span id="py_call/3">**py\_call**(`+Call,
-    -Return, +Options`)</span>  
+  - <span class="pred-tag">\[det\]</span><span id="py_call/1">**py_call**(`+Call`)</span>
+    <span class="pred-tag">\[det\]</span><span id="py_call/2">**py_call**(`+Call,
+    -Return`)</span>
+    <span class="pred-tag">\[det\]</span><span id="py_call/3">**py_call**(`+Call,
+    -Return, +Options`)</span>
     `Call` Python and return the result of the called function. `Call`
     has the shape‘\[Target\]\[:Action\]\*\`, where `Target` is either a
     Python module name or a Python object reference. Each `Action` is
@@ -517,70 +517,70 @@ path may be extended using [py\_add\_lib\_dir/1](#py_add_lib_dir/1).
     method name and the arguments provide the parameters to the Python
     function. On success, the returned Python object is translated to
     Prolog. `Action` without a `Target` denotes a buit-in function.
-    
+
     Arguments to Python functions use the Python conventions. Both
     *positional* and *keyword* arguments are supported. Keyword
     arguments are written as `Name = Value` and must appear after the
     positional arguments.
-    
+
     Below are some examples.
-    
+
     ``` code
     % call a built-in
     ?- py_call(print("Hello World!\n")).
     true.
-    
+
     % call a built-in (alternative)
     ?- py_call(builtins:print("Hello World!\n")).
     true.
-    
+
     % call function in a module
     ?- py_call(sys:getsizeof([1,2,3]), Size).
     Size = 80.
-    
+
     % call function on an attribute of a module
     ?- py_call(sys:path:append("/home/bob/janus")).
     true
-    
+
     % get attribute from a module
     ?- py_call(sys:path, Path)
     Path = ["dir1", "dir2", ...]
     ```
-    
+
     Given a class in a file `dog.py` such as the following example from
     the Python documentation
-    
+
     ``` code
     class Dog:
         tricks = []
-    
+
         def __init__(self, name):
             self.name = name
-    
+
         def add_trick(self, trick):
             self.tricks.append(trick)
     ```
-    
+
     We can interact with this class as below. Note that `$Doc` in the
     SWI-Prolog toplevel refers to the last toplevel binding for the
     variable `Dog`.
-    
+
     ``` code
     ?- py_call(dog:'Dog'("Fido"), Dog).
     Dog = <py_Dog>(0x7f095c9d02e0).
-    
+
     ?- py_call($Dog:add_trick("roll_over")).
     Dog = <py_Dog>(0x7f095c9d02e0).
-    
+
     ?- py_call($Dog:tricks, Tricks).
     Dog = <py_Dog>(0x7f095c9d02e0),
     Tricks = ["roll_over"]
     ```
-    
+
     If the principal term of the first argument is not `Target:Func`,
     The argument is evaluated as the initial target, i.e., it must be an
     object reference or a module. For example:
-    
+
     ``` code
     ?- py_call(dog:'Dog'("Fido"), Dog),
        py_call(Dog, X).
@@ -588,29 +588,29 @@ path may be extended using [py\_add\_lib\_dir/1](#py_add_lib_dir/1).
     ?- py_call(sys, S).
        S = <py_module>(0x7fa8cd582390).
     ```
-    
+
     `Options` processed:
-    
-      - **py\_object**(`Boolean`)  
+
+      - **py_object**(`Boolean`)
         If `true` (default `false`), translate the return as a Python
         object reference. Some objects are *always* translated to
         Prolog, regardless of this flag. These are the Python constants
         `None`, `True` and `False` as well as instances of the Python
         base classes `int`, `float`, `str` or `tuple`. Instances of sub
         classes of these base classes are controlled by this option.
-      - **py\_string\_as**(`+Type`)  
+      - **py_string_as**(`+Type`)
         If `Type` is `atom` (default), translate a Python String into a
         Prolog atom. If `Type` is `string`, translate into a Prolog
         string. Strings are more efficient if they are short lived.
-      - **py\_dict\_as**(`+Type`)  
+      - **py_dict_as**(`+Type`)
         One of `dict` (default) to map a Python dict to a SWI-Prolog
         dict if all keys can be represented. If `{}` or not all keys can
         be represented, `Return` is unified to a term `{k:v, ...}` or
         `py({})` if the Python dict is empty.
-    
+
     <!-- end list -->
-    
-      - Compatibility  
+
+      - Compatibility
         PIP. The options `py_string_as` and `py_dict_as` are SWI-Prolog
         specific, where SWI-Prolog Janus represents Python strings as
         atoms as required by the PIP and it represents Python dicts by
@@ -618,15 +618,15 @@ path may be extended using [py\_add\_lib\_dir/1](#py_add_lib_dir/1).
         [values/3](#values/3), [keys/2](#keys/2), etc. provide portable
         access to the data in the dict.
 
-  - <span class="pred-tag">\[nondet\]</span><span id="py_iter/2">**py\_iter**(`+Iterator,
-    -Value`)</span>  
-    <span class="pred-tag">\[nondet\]</span><span id="py_iter/3">**py\_iter**(`+Iterator,
-    -Value, +Options`)</span>  
+  - <span class="pred-tag">\[nondet\]</span><span id="py_iter/2">**py_iter**(`+Iterator,
+    -Value`)</span>
+    <span class="pred-tag">\[nondet\]</span><span id="py_iter/3">**py_iter**(`+Iterator,
+    -Value, +Options`)</span>
     True when `Value` is returned by the Python `Iterator`. Python
     iterators may be used to implement non-deterministic foreign
     predicates. The implementation uses these steps:
-    
-    1.  Evaluate `Iterator` as [py\_call/2](#py_call/2) evaluates its
+
+    1.  Evaluate `Iterator` as [py_call/2](#py_call/2) evaluates its
         first argument, except the `Obj:Attr = Value` construct is not
         accepted.
     2.  Call `__iter__` on the result to get the iterator itself.
@@ -635,193 +635,193 @@ path may be extended using [py\_add\_lib\_dir/1](#py_add_lib_dir/1).
         Python return value unifies with `Value`, succeed with a
         choicepoint. Abort on Python or unification exceptions.
     5.  Re-satisfaction continues at (4).
-    
+
     The example below uses the built-in iterator `range()`:
-    
+
     ``` code
     ?- py_iter(range(1,3), X).
     X = 1 ;
     X = 2.
     ```
-    
+
     Note that the implementation performs a *look ahead*, i.e., after
-    successful unification it calls‘\_\_next\_\_()\` again. On failure
+    successful unification it calls‘__next__()\` again. On failure
     the Prolog predicate succeeds deterministically. On success, the
     next candidate is stored.
-    
+
     Note that a Python *generator* is a Python *iterator*. Therefore,
     given the Python generator expression below, we can use
     `py_iter(squares(1,5),X)` to generate the squares on backtracking.
-    
+
     ``` code
     def squares(start, stop):
          for i in range(start, stop):
              yield i * i
     ```
-    
+
     |           |                                                |
     | --------- | ---------------------------------------------- |
-    | `Options` | is processed as with [py\_call/3](#py_call/3). |
-    
+    | `Options` | is processed as with [py_call/3](#py_call/3). |
 
-      - Compatibility  
-        PIP. The same remarks as for [py\_call/2](#py_call/2) apply.
-      - bug  
+
+      - Compatibility
+        PIP. The same remarks as for [py_call/2](#py_call/2) apply.
+      - bug
         `Iterator` may not depend on janus.`query()`, i.e., it is not
         possible to iterate over a Python iterator that under the hoods
         relies on a Prolog non-deterministic predicate.
 
-  - <span class="pred-tag">\[det\]</span><span id="py_setattr/3">**py\_setattr**(`+Target,
-    +Name, +Value`)</span>  
+  - <span class="pred-tag">\[det\]</span><span id="py_setattr/3">**py_setattr**(`+Target,
+    +Name, +Value`)</span>
     Set a Python attribute on an object. If `Target` is an atom, it is
     interpreted as a module. Otherwise it is normally an object
-    reference. [py\_setattr/3](#py_setattr/3) allows for *chaining* and
+    reference. [py_setattr/3](#py_setattr/3) allows for *chaining* and
     behaves as if defined as
-    
+
     ``` code
     py_setattr(Target, Name, Value) :-
         py_call(Target, Obj, [py_object(true)]),
         py_call(setattr(Obj, Name, Value)).
     ```
-    
-      - Compatibility  
+
+      - Compatibility
         PIP
 
-  - <span class="pred-tag">\[semidet\]</span><span id="py_is_object/1">**py\_is\_object**(`@Term`)</span>  
+  - <span class="pred-tag">\[semidet\]</span><span id="py_is_object/1">**py_is_object**(`@Term`)</span>
     True when `Term` is a Python object reference. Fails silently if
     `Term` is any other Prolog term.
-    
-      - Errors  
+
+      - Errors
         `existence_error(py_object, Term)` is raised of `Term` is a
         Python object, but it has been freed using
-        [py\_free/1](#py_free/1).
-      - Compatibility  
+        [py_free/1](#py_free/1).
+      - Compatibility
         PIP. The SWI-Prolog implementation is safe in the sense that an
         arbitrary term cannot be confused with a Python object and a
         reliable error is generated if the references has been freed.
         Portable applications can not rely on this.
 
-  - <span class="pred-tag">\[semidet\]</span><span id="py_is_dict/1">**py\_is\_dict**(`@Term`)</span>  
+  - <span class="pred-tag">\[semidet\]</span><span id="py_is_dict/1">**py_is_dict**(`@Term`)</span>
     True if `Term` is a Prolog term that represents a Python dict.
-    
-      - Compatibility  
+
+      - Compatibility
         PIP. The SWI-Prolog version accepts both a SWI-Prolog dict as
         the `\`{k:v,`\`ldots`\`} representation. See `py_dict_as` option
-        of [py\_call/2](#py_call/2).
+        of [py_call/2](#py_call/2).
 
-  - <span class="pred-tag">\[det\]</span><span id="py_free/1">**py\_free**(`+Obj`)</span>  
+  - <span class="pred-tag">\[det\]</span><span id="py_free/1">**py_free**(`+Obj`)</span>
     Immediately free (decrement the reference count) for the Python
     object `Obj`. Further reference to `Obj` using e.g.,
-    [py\_call/2](#py_call/2) or [py\_free/1](#py_free/1) raises an
+    [py_call/2](#py_call/2) or [py_free/1](#py_free/1) raises an
     `existence_error`. Note that by decrementing the reference count, we
     make the reference invalid from Prolog. This may not actually delete
     the object because the object may have references inside Python.
-    
+
     Prolog references to Python objects are subject to atom garbage
     collection and thus normally do not need to be freed explicitly.
-    
-      - Compatibility  
+
+      - Compatibility
         PIP. The SWI-Prolog implementation is safe and normally
         reclaiming Python object can be left to the garbage collector.
         Portable applications may not assume garbage collection of
-        Python objects and must ensure to call [py\_free/1](#py_free/1)
+        Python objects and must ensure to call [py_free/1](#py_free/1)
         exactly once on any Python object reference. Not calling
-        [py\_free/1](#py_free/1) leaks the Python object. Calling it
+        [py_free/1](#py_free/1) leaks the Python object. Calling it
         twice may lead to undefined behavior.
 
-  - <span class="pred-tag">\[semidet\]</span><span id="py_with_gil/1">**py\_with\_gil**(`:Goal`)</span>  
+  - <span class="pred-tag">\[semidet\]</span><span id="py_with_gil/1">**py_with_gil**(`:Goal`)</span>
     Run `Goal` as `once(Goal)` while holding the Phyton GIL (*Global
     Interpreter Lock*). Note that all predicates that interact with
     Python lock the GIL. This predicate is only required if we wish to
     make multiple calls to Python while keeping the GIL. The GIL is a
-    *recursive* lock and thus calling [py\_call/1](#py_call/1),2 while
+    *recursive* lock and thus calling [py_call/1](#py_call/1),2 while
     holding the GIL does not *deadlock*.
 
-  - <span class="pred-tag">\[semidet\]</span><span id="py_gil_owner/1">**py\_gil\_owner**(`-Thread`)</span>  
+  - <span class="pred-tag">\[semidet\]</span><span id="py_gil_owner/1">**py_gil_owner**(`-Thread`)</span>
     True when the Python GIL is owned by `Thread`. Note that, unless
     `Thread` is the calling thread, this merely samples the current
     state and may thus no longer be true when the predicate succeeds.
     This predicate is intended to help diagnose *deadlock* problems.
-    
+
     Note that this predicate returns the Prolog threads that locked the
     GIL. It is however possible that Python releases the GIL, for
     example if it performs a blocking call. In this scenario, some other
     thread or no thread may hold the gil.
 
-  - <span class="pred-tag">\[det\]</span><span id="py_func/3">**py\_func**(`+Module,
-    +Function, -Return`)</span>  
-    <span class="pred-tag">\[det\]</span><span id="py_func/4">**py\_func**(`+Module,
-    +Function, -Return, +Options`)</span>  
+  - <span class="pred-tag">\[det\]</span><span id="py_func/3">**py_func**(`+Module,
+    +Function, -Return`)</span>
+    <span class="pred-tag">\[det\]</span><span id="py_func/4">**py_func**(`+Module,
+    +Function, -Return, +Options`)</span>
     Call Python `Function` in `Module`. The SWI-Prolog implementation is
     equivalent to `py_call(Module:Function, Return)`. See
-    [py\_call/2](#py_call/2) for details.
-    
-      - Compatibility  
-        PIP. See [py\_call/2](#py_call/2) for notes. Note that, as this
-        implementation is based on [py\_call/2](#py_call/2), `Function`
+    [py_call/2](#py_call/2) for details.
+
+      - Compatibility
+        PIP. See [py_call/2](#py_call/2) for notes. Note that, as this
+        implementation is based on [py_call/2](#py_call/2), `Function`
         can use changing, e.g., `py_func(sys, path:append(dir), Return)`
         is accepted by this implementation, but not portable.
 
-  - <span class="pred-tag">\[det\]</span><span id="py_dot/4">**py\_dot**(`+Module,
-    +ObjRef, +MethAttr, -Ret`)</span>  
-    <span class="pred-tag">\[det\]</span><span id="py_dot/5">**py\_dot**(`+Module,
-    +ObjRef, +MethAttr, -Ret, +Options`)</span>  
+  - <span class="pred-tag">\[det\]</span><span id="py_dot/4">**py_dot**(`+Module,
+    +ObjRef, +MethAttr, -Ret`)</span>
+    <span class="pred-tag">\[det\]</span><span id="py_dot/5">**py_dot**(`+Module,
+    +ObjRef, +MethAttr, -Ret, +Options`)</span>
     Call a method or access an attribute on the object `ObjRef`. The
     SWI-Prolog implementation is equivalent to `py_call(ObjRef:MethAttr,
-    Return)`. See [py\_call/2](#py_call/2) for details.
-    
+    Return)`. See [py_call/2](#py_call/2) for details.
+
     |          |                                                       |
     | -------- | ----------------------------------------------------- |
     | `Module` | is ignored (why do we need that if we have `ObjRef`?) |
-    
 
-      - Compatibility  
-        PIP. See [py\_func/3](#py_func/3) for details.
+
+      - Compatibility
+        PIP. See [py_func/3](#py_func/3) for details.
 
   - <span class="pred-tag">\[semidet\]</span><span id="values/3">**values**(`+Dict,
-    +Path, ?Val`)</span>  
+    +Path, ?Val`)</span>
     Get the value associated with `Dict` at `Path`. `Path` is either a
     single key or a list of keys.
-    
-      - Compatibility  
+
+      - Compatibility
         PIP. Note that this predicate handle a SWI-Prolog dict, a {k:v,
         ...} term as well as py({k:v, ...}.
 
   - <span class="pred-tag">\[det\]</span><span id="keys/2">**keys**(`+Dict,
-    ?Keys`)</span>  
+    ?Keys`)</span>
     True when `Keys` is a list of keys that appear in `Dict`.
-    
-      - Compatibility  
+
+      - Compatibility
         PIP. Note that this predicate handle a SWI-Prolog dict, a {k:v,
         ...} term as well as py({k:v, ...}.
 
   - <span class="pred-tag">\[nondet\]</span><span id="key/2">**key**(`+Dict,
-    ?Key`)</span>  
+    ?Key`)</span>
     True when `Key` is a key in `Dict`. Backtracking enumerates all
     known keys.
-    
-      - Compatibility  
+
+      - Compatibility
         PIP. Note that this predicate handle a SWI-Prolog dict, a {k:v,
         ...} term as well as py({k:v, ...}.
 
   - <span class="pred-tag">\[det\]</span><span id="items/2">**items**(`+Dict,
-    ?Items`)</span>  
+    ?Items`)</span>
     True when `Items` is a list of Key:Value that appear in `Dict`.
-    
-      - Compatibility  
+
+      - Compatibility
         PIP. Note that this predicate handle a SWI-Prolog dict, a {k:v,
         ...} term as well as py({k:v, ...}.
 
-  - <span id="py_shell/0">**py\_shell**</span>  
+  - <span id="py_shell/0">**py_shell**</span>
     Start an interactive Python REPL loop using the embedded Python
     interpreter. The interpreter first imports `janus` as below.
-    
+
     ``` code
     from janus import *
     ```
-    
+
     So, we can do
-    
+
     ``` code
     ?- py_shell.
     ...
@@ -829,21 +829,21 @@ path may be extended using [py\_add\_lib\_dir/1](#py_add_lib_dir/1).
     Hello world
     {'truth': True}
     ```
-    
+
     If possible, we enable command line editing using the GNU readline
     library.
-    
+
     When used in an environment where Prolog does not use the file
     handles 0,1,2 for the standard streams, e.g., in `swipl-win`,
     Python's I/O is rebound to use Prolog's I/O. This includes Prolog's
     command line editor, resulting in a mixed history of Prolog and
     Pythin commands.
 
-  - <span class="pred-tag">\[det\]</span><span id="py_pp/1">**py\_pp**(`+Term`)</span>  
-    <span class="pred-tag">\[det\]</span><span id="py_pp/2">**py\_pp**(`+Term,
-    +Options`)</span>  
-    <span class="pred-tag">\[det\]</span><span id="py_pp/3">**py\_pp**(`+Stream,
-    +Term, +Options`)</span>  
+  - <span class="pred-tag">\[det\]</span><span id="py_pp/1">**py_pp**(`+Term`)</span>
+    <span class="pred-tag">\[det\]</span><span id="py_pp/2">**py_pp**(`+Term,
+    +Options`)</span>
+    <span class="pred-tag">\[det\]</span><span id="py_pp/3">**py_pp**(`+Stream,
+    +Term, +Options`)</span>
     Pretty prints the Prolog translation of a Python data structure in
     Python syntax. This exploits `pformat()` from the Python module
     `pprint` to do the actual formatting. `Options` is translated into
@@ -851,34 +851,34 @@ path may be extended using [py\_add\_lib\_dir/1](#py_add_lib_dir/1).
     option `nl(Bool)` is processed. When `true` (default), we use
     pprint.`pp()`, which makes the output followed by a newline. For
     example:
-    
+
     ``` code
     ?- py_pp(py{a:1, l:[1,2,3], size:1000000},
              [underscore_numbers(true)]).
     {'a': 1, 'l': [1, 2, 3], 'size': 1_000_000}
     ```
-    
-      - Compatibility  
+
+      - Compatibility
         PIP
 
-  - <span class="pred-tag">\[det\]</span><span id="py_obj_dir/2">**py\_obj\_dir**(`+ObjRef,
-    -List`)</span>  
-    <span class="pred-tag">\[det\]</span><span id="py_obj_dict/2">**py\_obj\_dict**(`+ObjRef,
-    -Dict`)</span>  
+  - <span class="pred-tag">\[det\]</span><span id="py_obj_dir/2">**py_obj_dir**(`+ObjRef,
+    -List`)</span>
+    <span class="pred-tag">\[det\]</span><span id="py_obj_dict/2">**py_obj_dict**(`+ObjRef,
+    -Dict`)</span>
     Examine attributes of an object. The predicate
-    [py\_obj\_dir/2](#py_obj_dir/2) fetches the names of all attributes,
-    while [py\_obj\_dict/2](#py_obj_dict/2) gets a dict with all
+    [py_obj_dir/2](#py_obj_dir/2) fetches the names of all attributes,
+    while [py_obj_dict/2](#py_obj_dict/2) gets a dict with all
     attributes and their values.
-    
-      - Compatibility  
+
+      - Compatibility
         PIP
 
-  - <span class="pred-tag">\[det\]</span><span id="py_module/2">**py\_module**(`+Module:atom,
-    +Source:string`)</span>  
+  - <span class="pred-tag">\[det\]</span><span id="py_module/2">**py_module**(`+Module:atom,
+    +Source:string`)</span>
     Load `Source` into the Python module `Module`. This is intended to
     be used together with the `string` *quasi quotation* that supports
     long strings in SWI-Prolog. For example:
-    
+
     ``` code
     :- use_module(library(strings)).
     :- py_module(hello,
@@ -887,82 +887,82 @@ path may be extended using [py\_add\_lib\_dir/1](#py_add_lib_dir/1).
                   |     print(f"hello {s}")
                   |}).
     ```
-    
+
     Calling this predicate multiple times with the same `Module` and
     `Source` is a no-op. Called with a different source creates a new
     Python module that replaces the old in the global namespace.
-    
-      - Errors  
+
+      - Errors
         `python_error(Type, Data, Stack)` is raised if Python raises an
         error.
 
-  - <span class="pred-tag">\[det\]</span><span id="py_initialize/3">**py\_initialize**(`+Program,
-    +Argv, +Options`)</span>  
+  - <span class="pred-tag">\[det\]</span><span id="py_initialize/3">**py_initialize**(`+Program,
+    +Argv, +Options`)</span>
     Initialize and configure the embedded Python system. If this
     predicate is not called before any other call to Python such as
-    [py\_call/2](#py_call/2), it is called *lazily*, passing the Prolog
+    [py_call/2](#py_call/2), it is called *lazily*, passing the Prolog
     executable as `Program`, the non-Prolog arguments as `Argv` and an
     empty `Options` list.
-    
+
     Calling this predicate while the Python is already initialized is a
     no-op. This predicate is thread-safe, where the first call
     initializes Python.
-    
+
     In addition to initializing the Python system, it
-    
+
       - Adds the directory holding `janus.py` to the Python module
         search path.
       - If Prolog I/O is not connected to the file handles 0,1,2, it
         rebinds Python I/O to use the Prolog I/O.
-    
+
     |           |                                                                                    |
     | --------- | ---------------------------------------------------------------------------------- |
     | `Options` | is currently ignored. It will be used to provide additional configuration options. |
-    
 
-  - <span class="pred-tag">\[det\]</span><span id="py_lib_dirs/1">**py\_lib\_dirs**(`-Dirs`)</span>  
+
+  - <span class="pred-tag">\[det\]</span><span id="py_lib_dirs/1">**py_lib_dirs**(`-Dirs`)</span>
     True when `Dirs` is a list of directories searched for Python
     modules. The elements of `Dirs` are in Prolog canonical notation.
-    
-      - Compatibility  
+
+      - Compatibility
         PIP
 
-  - <span class="pred-tag">\[det\]</span><span id="py_add_lib_dir/1">**py\_add\_lib\_dir**(`+Dir`)</span>  
-    <span class="pred-tag">\[det\]</span><span id="py_add_lib_dir/2">**py\_add\_lib\_dir**(`+Dir,
-    +Where`)</span>  
+  - <span class="pred-tag">\[det\]</span><span id="py_add_lib_dir/1">**py_add_lib_dir**(`+Dir`)</span>
+    <span class="pred-tag">\[det\]</span><span id="py_add_lib_dir/2">**py_add_lib_dir**(`+Dir,
+    +Where`)</span>
     Add a directory to the Python module search path. In the second
     form, `Where` is one of `first` or `last`.
-    [py\_add\_lib\_dir/1](#py_add_lib_dir/1) adds the directory as
+    [py_add_lib_dir/1](#py_add_lib_dir/1) adds the directory as
     first. The property `sys:path` is not modified if it already
     contains `Dir`.
-    
+
     `Dir` is in Prolog notation. The added directory is converted to an
     absolute path using the OS notation.
-    
-    The form <span class="pred-ext">py\_add\_lib\_dir/0</span> may only
+
+    The form <span class="pred-ext">py_add_lib_dir/0</span> may only
     be used as a *directive*, adding the directory from which the
     current Prolog source is loaded at the head of the Python search
-    path. If [py\_add\_lib\_dir/1](#py_add_lib_dir/1) or
-    [py\_add\_lib\_dir/2](#py_add_lib_dir/2) are used in a directive and
+    path. If [py_add_lib_dir/1](#py_add_lib_dir/1) or
+    [py_add_lib_dir/2](#py_add_lib_dir/2) are used in a directive and
     the given directory is not absolute, it is resolved against the
     directory holding the current Prolog source.
-    
-      - Compatibility  
+
+      - Compatibility
         PIP. PIP only describes
-        [py\_add\_lib\_dir/1](#py_add_lib_dir/1).
+        [py_add_lib_dir/1](#py_add_lib_dir/1).
 
 ### <span id="sec:4.1"><span class="sec-nr">4.1</span> <span class="sec-title">Handling Python errors in Prolog</span></span>
 
 <span id="sec:janus-python-errors"></span>
 
-If <span id="idx:pycall2:11"></span>[py\_call/2](#py_call/2) or one of
+If <span id="idx:pycall2:11"></span>[py_call/2](#py_call/2) or one of
 the other predicates that access Python causes Python to raise an
 exception, this exception is translated into a Prolog exception of the
 shape below. The library defines a rule for
-<span id="idx:printmessage2:12"></span><span class="pred-ext">print\_message/2</span>
+<span id="idx:printmessage2:12"></span><span class="pred-ext">print_message/2</span>
 to render these errors in a human readable way.
 
-> `error(python_error(ErrorType, Value, Stack)`, \_)
+> `error(python_error(ErrorType, Value, Stack)`, _)
 
 Here, `ErrorType` is the name of the error type, as an atom, e.g.,
 `’TypeError'`. `Value` is the exception object represented by a Python
@@ -1004,7 +1004,7 @@ not know whether this covers all platforms and versions.</span></sup>
     Python library. If this directory does not exist we print a
     diagnostic warning.
   - Add a message to
-    <span id="idx:pyversion0:13"></span>[py\_version/0](#py_version/0)
+    <span id="idx:pyversion0:13"></span>[py_version/0](#py_version/0)
     that indicates we are using a virtual environment and from which
     directory.
 
@@ -1072,11 +1072,11 @@ The table below summarizes the four primitives.
 |            |                                              |                                              |
 | ---------: | :------------------------------------------: | :------------------------------------------: |
 |            |           **Relational notation**            |           **Functional notation**            |
-|    **det** | [janus.query\_once()](#janus.query_once\(\)) | [janus.apply\_once()](#janus.apply_once\(\)) |
+|    **det** | [janus.query_once()](#janus.query_once\(\)) | [janus.apply_once()](#janus.apply_once\(\)) |
 | **nondet** |      [janus.query()](#janus.query\(\))       |      [janus.apply()](#janus.apply\(\))       |
 
 We start our discussion by introducing the
-[janus.query\_once(query,inputs)](#janus.query_once\(\)) function for
+[janus.query_once(query,inputs)](#janus.query_once\(\)) function for
 calling Prolog goals as
 <span id="idx:once1:14"></span><span class="pred-ext">once/1</span>. A
 Prolog goal is constructed from a string and a dict with *input
@@ -1140,11 +1140,11 @@ def hasBigIntegers():
     janus.query_once("current_prolog_flag(bounded,false)")['truth']
 ```
 
-While [janus.query\_once()](#janus.query_once\(\)) deals with
+While [janus.query_once()](#janus.query_once\(\)) deals with
 semi-deterministic goals, the class [janus.query()](#janus.query\(\))
 implements a Python *iterator* that iterates over the solutions of a
 Prolog goal. The iterator may be aborted using the Python `break`
-statement. As with [janus.query\_once()](#janus.query_once\(\)), the
+statement. As with [janus.query_once()](#janus.query_once\(\)), the
 returned dict contains a `truth` field. This field cannot be `False`
 though and thus is either `True` or an instance of the class
 [janus.Undefined()](#janus.Undefined\(\))
@@ -1213,9 +1213,9 @@ swipl.Error: swipl.next_solution(): not inner query
 inconsistent state and further interaction with Prolog is likely to
 crash the process**. Future versions may improve on that.
 
-  - <span id="janus.query_once()">`dict` **janus.query\_once**(`query,
+  - <span id="janus.query_once()">`dict` **janus.query_once**(`query,
     bindings={}, keep=False,
-    truth_vals=TruthVals.PLAIN_TRUTHVALS`)</span>  
+    truth_vals=TruthVals.PLAIN_TRUTHVALS`)</span>
     Call `query` using `bindings` as
     <span id="idx:once1:16"></span><span class="pred-ext">once/1</span>,
     returning a dict with the resulting bindings. If `bindings` is
@@ -1224,14 +1224,14 @@ crash the process**. Future versions may improve on that.
     default, such changes are discarded and as a result, changes to
     backtrackable global variables are lost. Using `True`, such changes
     are preserved.
-    
+
     ``` code
     >>> query_once("b_setval(a, 1)", keep=True)
     {'truth': 'True'}
     >>> query_once("b_getval(a, X)")
     {'truth': 'True', 'X': 1}
     ```
-    
+
     If `query` fails, the variables of the query are bound to the Python
     constant `None`. The `bindings` object includes a key
     `truth`<sup>6<span class="fn-text">As this name is not a valid
@@ -1242,29 +1242,29 @@ crash the process**. Future versions may improve on that.
     [janus.Undefined()](#janus.Undefined\(\)). The information carried
     by this instance is determined by the `truth` parameter. Below is an
     example. See [section 5.4](#sec:5.4) for details.
-    
+
     ``` code
     >>> import janus_swi as janus
     >>> janus.query_once("undefined")
     {'truth': Undefined}
     ```
-    
+
     See also [janus.cmd()](#janus.cmd\(\)) and
-    [janus.apply\_once()](#janus.apply_once\(\)), which provide a fast
+    [janus.apply_once()](#janus.apply_once\(\)), which provide a fast
     but more limited alternative for making ground queries
     ([janus.cmd()](#janus.cmd\(\))) or queries with leading ground
     arguments followed by a single output variable.
-    
-      - Compatibility  
+
+      - Compatibility
         PIP.
 
   - <span id="janus.once()">`dict` **janus.once**(`query, bindings={},
-    keep=False, truth_vals=TruthVals.PLAIN_TRUTHVALS`)</span>  
+    keep=False, truth_vals=TruthVals.PLAIN_TRUTHVALS`)</span>
     *Deprecated*. Renamed to
-    [janus.query\_once()](#janus.query_once\(\)).
+    [janus.query_once()](#janus.query_once\(\)).
 
-  - <span id="janus.apply_once()">`Any` **janus.apply\_once**(`module,
-    predicate, input ..., fail=obj`)</span>  
+  - <span id="janus.apply_once()">`Any` **janus.apply_once**(`module,
+    predicate, input ..., fail=obj`)</span>
     *Functional notation* style calling of a deterministic Prolog
     predicate. This calls `module:predicate(Input ... , Output)`, where
     `Input` are the Python `input` arguments converted to Prolog. On
@@ -1275,23 +1275,23 @@ crash the process**. Future versions may improve on that.
     fast calling convention for calling a simple predicate with suitable
     calling conventions. The example below returns the *home directory*
     of the SWI-Prolog installation.
-    
+
     ``` code
     >>> import janus_swi as janus
     >>> janus.apply_once("user", "current_prolog_flag", "home")
     '/home/janw/src/swipl-devel/build.pdf/home'
     ```
-    
-      - Compatibility  
+
+      - Compatibility
         PIP.
 
   - <span id="janus.cmd()">`Truth` **janus.cmd**(`module, predicate,
-    input ...`)</span>  
-    Similar to [janus.apply\_once()](#janus.apply_once\(\)), but no
+    input ...`)</span>
+    Similar to [janus.apply_once()](#janus.apply_once\(\)), but no
     argument for the return value is added. This function returns the
     *truth value* using the same conventions as the `truth` key in
-    [janus.query\_once()](#janus.query_once\(\)). For example:
-    
+    [janus.query_once()](#janus.query_once\(\)). For example:
+
     ``` code
     >>> import janus_swi as janus
     >>> cmd("user", "true")
@@ -1307,17 +1307,17 @@ crash the process**. Future versions may improve on that.
       File "<console>", line 1, in <module>
     janus.PrologError: '$c_call_prolog'/0: Unknown procedure: no_such_predicate/0
     ```
-    
-    The function [janus.query\_once()](#janus.query_once\(\)) is more
+
+    The function [janus.query_once()](#janus.query_once\(\)) is more
     flexible and provides all functionality of
     [janus.cmd()](#janus.cmd\(\)). However, this function is faster and
     in some scenarios easier to use.
-    
-      - Compatibility  
+
+      - Compatibility
         PIP.
 
   - <span id="janus.consult()">`None` **janus.consult**(`file,
-    data=None, module='user'`)</span>  
+    data=None, module='user'`)</span>
     Load Prolog text into the Prolog database. By default, `data` is
     `None` and the text is read from `file`. If `data` is a string, it
     provides the Prolog text that is loaded and `file` is used as
@@ -1325,67 +1325,67 @@ crash the process**. Future versions may improve on that.
     argument denotes the target module. That is where the clauses are
     added to if the Prolog text does not define a module or where the
     exported predicates of the module are imported into.
-    
+
     If `data` is not provided and `file` is not accessible this raises a
     Prolog exception. Errors that occur during the compilation are
     printed using
-    <span id="idx:printmessage2:17"></span><span class="pred-ext">print\_message/2</span>
+    <span id="idx:printmessage2:17"></span><span class="pred-ext">print_message/2</span>
     and can currently not be captured easily. The script below prints
     the train connections as a list of Python tuples.
-    
+
     ``` code
         import janus_swi as janus
-    
+
         janus.consult("trains", """
         train('Amsterdam', 'Haarlem').
         train('Amsterdam', 'Schiphol').
         """)
-    
+
         print([d['Tuple'] for d in
                janus.query("train(_From,_To),Tuple=_From-_To")])
-        
+
     ```
-    
-      - Compatibility  
+
+      - Compatibility
         PIP. The `data` and `module` keyword arguments are SWI-Prolog
         extensions.
 
-  - <span id="janus.prolog()">`None` **janus.prolog**(`  `)</span>  
+  - <span id="janus.prolog()">`None` **janus.prolog**(`  `)</span>
     Start the interactive Prolog toplevel. This is the Python equivalent
-    of <span id="idx:pyshell0:18"></span>[py\_shell/0](#py_shell/0).
+    of <span id="idx:pyshell0:18"></span>[py_shell/0](#py_shell/0).
 
 ### <span id="sec:5.1"><span class="sec-nr">5.1</span> <span class="sec-title">Janus iterator query</span></span>
 
 <span id="sec:janus-class-query"></span>
 
 Class [janus.query()](#janus.query\(\)) is similar to the
-[janus.query\_once()](#janus.query_once\(\)) function, but it returns a
+[janus.query_once()](#janus.query_once\(\)) function, but it returns a
 Python *iterator* that allows for iterating over the answers to a
 non-deterministic Prolog predicate.
 
   - <span id="janus.query()">`query` **janus.query**(`query,
-    bindings={}, keep=False`)</span>  
-    As [janus.query\_once()](#janus.query_once\(\)), returning an
+    bindings={}, keep=False`)</span>
+    As [janus.query_once()](#janus.query_once\(\)), returning an
     *iterator* that provides an answer dict as
-    [janus.query\_once()](#janus.query_once\(\)) for each answer to
+    [janus.query_once()](#janus.query_once\(\)) for each answer to
     `query`. Answers never have `truth` `False`. See discussion above.
-      - Compatibility  
+      - Compatibility
         PIP. The `keep` is a SWI-Prolog extension.
   - <span id="janus.Query()">`Query` **janus.Query**(`query,
-    bindings={}, keep=False`)</span>  
+    bindings={}, keep=False`)</span>
     *Deprecated*. This class was renamed to
     [janus.query(.)](#janus.query\(\))
   - <span id="janus.query.next()">`dict|None`
-    **janus.query.next**(`  `)</span>  
+    **janus.query.next**(`  `)</span>
     Explicitly ask for the next solution of the iterator. Normally,
     using the `query` as an iterator is to be preferred. See discussion
     above.
   - <span id="janus.query.close()">`None`
-    **janus.query.close**(`  `)</span>  
+    **janus.query.close**(`  `)</span>
     Close the query. Closing a query is obligatory. When used as an
-    iterator, the Python destructor (**\_\_del\_\_()**) takes care of
+    iterator, the Python destructor (**__del__()**) takes care of
     closing the query.
-      - Compatibility  
+      - Compatibility
         PIP.
 
 ### <span id="sec:5.2"><span class="sec-nr">5.2</span> <span class="sec-title">Janus iterator apply</span></span>
@@ -1393,28 +1393,28 @@ non-deterministic Prolog predicate.
 <span id="sec:janus-class-apply"></span>
 
 Class [janus.apply()](#janus.apply\(\)) is similar to
-[janus.apply\_once()](#janus.apply_once\(\)), calling a Prolog predicate
+[janus.apply_once()](#janus.apply_once\(\)), calling a Prolog predicate
 using functional notation style. It returns a Python *iterator* that
 enumerates all answers.
 
   - <span id="janus.apply()">`apply` **janus.apply**(`module, predicate,
-    input ...`)</span>  
-    As [janus.apply\_once()](#janus.apply_once\(\)), returning an
+    input ...`)</span>
+    As [janus.apply_once()](#janus.apply_once\(\)), returning an
     *iterator* that returns individual answers. The example below uses
     Python *list comprehension* to create a list of integers from the
     Prolog built-in
     <span id="idx:between3:19"></span><span class="pred-ext">between/3</span>.
-    
+
     ``` code
     >>> [*janus.apply("user", "between", 1, 6)]
     [1, 2, 3, 4, 5, 6]
     ```
-    
-      - Compatibility  
+
+      - Compatibility
         PIP.
 
   - <span id="janus.apply.next()">`any|None`
-    **janus.apply.next**(`  `)</span>  
+    **janus.apply.next**(`  `)</span>
     Explicitly ask for the next solution of the iterator. Normally,
     using the `apply` as an iterator is to be preferred. See discussion
     above. Note that this calling convention cannot distinguish between
@@ -1422,12 +1422,12 @@ enumerates all answers.
     iteration.
 
   - <span id="janus.apply.close()">`None`
-    **janus.apply.close**(`  `)</span>  
+    **janus.apply.close**(`  `)</span>
     Close the query. Closing a query is obligatory. When used as an
-    iterator, the Python destructor (**\_\_del\_\_()**) takes care of
+    iterator, the Python destructor (**__del__()**) takes care of
     closing the query.
-    
-      - Compatibility  
+
+      - Compatibility
         PIP.
 
 ### <span id="sec:5.3"><span class="sec-nr">5.3</span> <span class="sec-title">Janus access to Python locals and globals</span></span>
@@ -1437,8 +1437,8 @@ enumerates all answers.
 Python provides access to dictionaries holding the local variables of a
 function using **locals()** as well as the global variables stored as
 attributes to the module to which the function belongs as **globals()**.
-The Python C API provides **PyEval\_GetLocals()** and
-**PyEval\_GetGlobals()**, but these return the scope of the Janus API
+The Python C API provides **PyEval_GetLocals()** and
+**PyEval_GetGlobals()**, but these return the scope of the Janus API
 function rather than user code, i.e., the global variables of the
 `janus` module and the local variables of the running Janus interface
 function.
@@ -1477,11 +1477,11 @@ The notion of *generic undefined* is represented by a unique instance of
 this class. The three truth values are accessible as properties of the
 `janus` module.
 
-  - **janus.true**  
+  - **janus.true**
     This property has the Python boolean `True`
-  - **janus.false**  
+  - **janus.false**
     This property has the Python boolean `False`
-  - **janus.undefined**  
+  - **janus.undefined**
     This property holds a unique instance of class
     [janus.Undefined()](#janus.Undefined\(\))
 
@@ -1493,39 +1493,39 @@ The class [janus.Undefined()](#janus.Undefined\(\)) represents an
 undefined result under the *Well Founded Semantics*.
 
   - <span id="janus.Undefined()">`Undefined`
-    **janus.Undefined**(`term=None`)</span>  
+    **janus.Undefined**(`term=None`)</span>
     Instances are never created explicitly by the user. They are created
     by the calls to Prolog initiated from
-    [janus.query\_once()](#janus.query_once\(\)) and
+    [janus.query_once()](#janus.query_once\(\)) and
     [janus.query()](#janus.query\(\)).
-    
+
     The class has a single property class `term` that represents either
     the *delay list* or the *residual program*. See
     [janus.TruthVal()](#janus.TruthVal\(\)) for details.
 
-  - <span id="janus.TruthVal()">`Enum` **janus.TruthVal**(`  `)</span>  
+  - <span id="janus.TruthVal()">`Enum` **janus.TruthVal**(`  `)</span>
     This class is a Python *enumeration*. Its values are passed as the
     optional `truth` parameter to
-    [janus.query\_once()](#janus.query_once\(\)) and
+    [janus.query_once()](#janus.query_once\(\)) and
     [janus.query()](#janus.query\(\)). The defined instances are
-    
-      - **NO\_TRUTHVALS**  
+
+      - **NO_TRUTHVALS**
         Undefined results are reported as `True`. This is quite
         pointless in the current design and this may go.
-      - **PLAIN\_TRUTHVALS**  
+      - **PLAIN_TRUTHVALS**
         Return undefined results as `janus.undefined`, a unique instance
         of the class [janus.Undefined()](#janus.Undefined\(\)).
-      - **DELAY\_LISTS**  
+      - **DELAY_LISTS**
         Return undefined results as an instance of class
         [janus.Undefined()](#janus.Undefined\(\)). thats holds the delay
         list in Prolog native representation. See
-        <span id="idx:calldelays2:20"></span><span class="pred-ext">call\_delays/2</span>.
-      - **RESIDUAL\_PROGRAM**  
+        <span id="idx:calldelays2:20"></span><span class="pred-ext">call_delays/2</span>.
+      - **RESIDUAL_PROGRAM**
         Return undefined results as an instance of class
         [janus.Undefined()](#janus.Undefined\(\)). thats holds the
         *residual program* in Prolog native representation. See
-        <span id="idx:callresidualprogram2:21"></span><span class="pred-ext">call\_residual\_program/2</span>.
-    
+        <span id="idx:callresidualprogram2:21"></span><span class="pred-ext">call_residual_program/2</span>.
+
     The instances of this enumeration are available as attributed of the
     `janus` module.
 
@@ -1544,7 +1544,7 @@ person(mayor).
 From Python, we may ask who shaves the barber in four ways as
 illustrated below. Note that the Prolog representations for
 `janus.DELAY_LISTS` and `janus.RESIDUAL_PROGRAM` use the
-<span id="idx:writecanonical1:22"></span><span class="pred-ext">write\_canonical/1</span>
+<span id="idx:writecanonical1:22"></span><span class="pred-ext">write_canonical/1</span>
 notation. They may later be changed to use a more human friendly
 notation.
 
@@ -1572,15 +1572,15 @@ notation.
 
 Class [janus.Term()](#janus.Term\(\)) encapsulates a Prolog term.
 Similarly to the Python object reference (see
-<span id="idx:pyisobject1:23"></span>[py\_is\_object/1](#py_is_object/1)),
+<span id="idx:pyisobject1:23"></span>[py_is_object/1](#py_is_object/1)),
 the class allows Python to represent arbitrary Prolog data, typically
 with the intend to pass it back to Prolog.
 
-  - <span id="janus.Term()">`Term` **janus.Term**(`...`)</span>  
+  - <span id="janus.Term()">`Term` **janus.Term**(`...`)</span>
     Instances are never created explicitly by the user. An instance is
     created by handling a term `prolog(Term)` to the data conversion
     process. As a result, we can do
-    
+
     ``` code
     ?- py_call(janus:echo(prolog(hello(world))), Obj,
                [py_object(true)]).
@@ -1591,15 +1591,15 @@ with the intend to pass it back to Prolog.
     ```
 
   - <span id="janus.Term.__str__()">`Term`
-    **janus.Term.\_\_str\_\_**(`  `)</span>  
+    **janus.Term.__str__**(`  `)</span>
     Return the output of
     <span id="idx:print1:24"></span><span class="pred-ext">print/1</span>
     on the term. This is what is used by the Python function print().
 
   - <span id="janus.Term.__repr__()">`Term`
-    **janus.Term.\_\_repr\_\_**(`  `)</span>  
+    **janus.Term.__repr__**(`  `)</span>
     Return the output of
-    <span id="idx:writecanonical1:25"></span><span class="pred-ext">write\_canonical/1</span>
+    <span id="idx:writecanonical1:25"></span><span class="pred-ext">write_canonical/1</span>
     on the term.
 
 ### <span id="sec:5.6"><span class="sec-nr">5.6</span> <span class="sec-title">Janus class PrologError</span></span>
@@ -1608,8 +1608,8 @@ with the intend to pass it back to Prolog.
 
 Class [janus.PrologError()](#janus.PrologError\(\)), derived from the
 Python class **Exception** represents a Prolog exception that typically
-results from calling [janus.query\_once()](#janus.query_once\(\)),
-[janus.apply\_once()](#janus.apply_once\(\)),
+results from calling [janus.query_once()](#janus.query_once\(\)),
+[janus.apply_once()](#janus.apply_once\(\)),
 [janus.query()](#janus.query\(\)) or [janus.apply()](#janus.apply\(\)).
 The class either encapsulates a string on a Prolog exception term using
 **janus.Term**. Prolog exceptions are used to represent errors raised by
@@ -1630,17 +1630,17 @@ improve on that by either subclassing **janus.PrologError** or provide a
 method to classify the error more easily.
 
   - <span id="janus.PrologError()">`PrologError`
-    **janus.PrologError**(`TermOrString`)</span>  
+    **janus.PrologError**(`TermOrString`)</span>
     The constructor may be used explicitly, but this should be very
     uncommon.
   - <span id="janus.PrologError.__str__()">`String`
-    **janus.PrologError.\_\_str\_\_**(`  `)</span>  
+    **janus.PrologError.__str__**(`  `)</span>
     Return a human readable message for the error using
-    <span id="idx:messagetostring2:26"></span><span class="pred-ext">message\_to\_string/2</span>
+    <span id="idx:messagetostring2:26"></span><span class="pred-ext">message_to_string/2</span>
   - <span id="janus.PrologError.__repr__()">`String`
-    **janus.PrologError.\_\_repr\_\_**(`  `)</span>  
+    **janus.PrologError.__repr__**(`  `)</span>
     Return a formal representation of the error by means of
-    <span id="idx:writecanonical1:27"></span><span class="pred-ext">write\_canonical/1</span>.
+    <span id="idx:writecanonical1:27"></span><span class="pred-ext">write_canonical/1</span>.
 
 ## <span id="sec:6"><span class="sec-nr">6</span> <span class="sec-title">Janus and threads</span></span>
 
@@ -1664,7 +1664,7 @@ interpreter. If Python calls Prolog, the GIL is released using
   - Multiple Prolog threads can make calls to Python. The access to
     Python is *serialized*. If a Prolog thread does not want other
     threads to use Python it can use
-    <span id="idx:pywithgil1:28"></span>[py\_with\_gil/1](#py_with_gil/1).
+    <span id="idx:pywithgil1:28"></span>[py_with_gil/1](#py_with_gil/1).
     When multiple Prolog threads make many calls to Python performance
     tends to drop significantly.
   - Multiple Python threads can make calls to Prolog. While Prolog is
@@ -1681,34 +1681,34 @@ which implies that Python is allowed to switch to another thread while
 Prolog is doing its work.
 
 If the calling Python thread is not the one that initiated Janus,
-[janus.query\_once()](#janus.query_once\(\)) and
+[janus.query_once()](#janus.query_once\(\)) and
 [janus.query()](#janus.query\(\)) attach and detach a temporary Prolog
-engine using **PL\_thread\_attach\_engine()** and
-**PL\_thread\_destroy\_engine()**. This is relatively costly. In
+engine using **PL_thread_attach_engine()** and
+**PL_thread_destroy_engine()**. This is relatively costly. In
 addition we allow associating a Prolog engine persistently with the
 calling thread.
 
-  - <span id="janus.engine()">`int` **janus.engine**(`  `)</span>  
+  - <span id="janus.engine()">`int` **janus.engine**(`  `)</span>
     Return the identifier of the Prolog engine associated to the current
     thread, -1 if no engine is attached or -2 if this version of Prolog
     does not support engines.
 
   - <span id="janus.attach_engine()">`int`
-    **janus.attach\_engine**(`  `)</span>  
+    **janus.attach_engine**(`  `)</span>
     Attach a Prolog engine to the current thread using
-    **PL\_thread\_attach\_engine()**. On success, return the integer
+    **PL_thread_attach_engine()**. On success, return the integer
     thread id of the created Prolog
     engine.<sup>8<span class="fn-text">The current implementation passes
-    `NULL` to **PL\_thread\_attach\_engine()**. Future versions may
+    `NULL` to **PL_thread_attach_engine()**. Future versions may
     provide access to the creation attributes.</span></sup>
-    
+
     If the thread already has an engine the *attach count* is
     incremented and the current engine id is returned. The engine is
     detached after a matching number of calls to
-    [janus.detach\_engine()](#janus.detach_engine\(\))
+    [janus.detach_engine()](#janus.detach_engine\(\))
 
   - <span id="janus.detach_engine()">`None`
-    **janus.detach\_engine**(`  `)</span>  
+    **janus.detach_engine**(`  `)</span>
     Decrement the *attach count* of the attached Prolog engine. Destroy
     the engine if this count drops to zero. Raises an exception of the
     calling thread is not attached to a Prolog engine.
@@ -1718,16 +1718,16 @@ calling thread.
 <span id="sec:janus-deadlocks"></span>
 
 In a threaded environment, Python calls must be guarded by
-PyGILState\_Ensure() and PyGILState\_Release() that ultimately
-lock/unlock a *mutex*. Unfortunately there is no PyGILState\_TryEnsure()
+PyGILState_Ensure() and PyGILState_Release() that ultimately
+lock/unlock a *mutex*. Unfortunately there is no PyGILState_TryEnsure()
 and therefore we may create deadlocks when Prolog locks are involved.
 This may either apply to explicit Prolog locks from
-<span id="idx:withmutex2:29"></span><span class="pred-ext">with\_mutex/2</span>
+<span id="idx:withmutex2:29"></span><span class="pred-ext">with_mutex/2</span>
 and friends or implicit locks on e.g. I/O streams. The classical
 scenario is thread `A` holding the Python GIL and wanting to call Prolog
 code that locks a mutex `M`, while thread `B` holds `M` and wishes to
 make a Python call and this tries to lock the GIL. The predicate
-<span id="idx:pygilowner1:30"></span>[py\_gil\_owner/1](#py_gil_owner/1)
+<span id="idx:pygilowner1:30"></span>[py_gil_owner/1](#py_gil_owner/1)
 can be used to help diagnosing such issues.
 
 ## <span id="sec:7"><span class="sec-nr">7</span> <span class="sec-title">Janus as a Python package</span></span>
@@ -1925,12 +1925,12 @@ Prolog representation. See
 
 Calling Python from Prolog provides a low-level and a more high level
 interface. The high level interface is realized by
-<span id="idx:pycall23:35"></span>[py\_call/\[2,3\]](#py_call/2) and
-<span id="idx:pyiter23:36"></span>[py\_iter/\[2,3\]](#py_iter/2). We
+<span id="idx:pycall23:35"></span>[py_call/\[2,3\]](#py_call/2) and
+<span id="idx:pyiter23:36"></span>[py_iter/\[2,3\]](#py_iter/2). We
 realize the low level interfaces
-<span id="idx:pyfunc34:37"></span>[py\_func/\[3,4\]](#py_func/3) and
-<span id="idx:pydot45:38"></span>[py\_dot/\[4,5\]](#py_dot/4) on top of
-<span id="idx:pycall2:39"></span>[py\_call/2](#py_call/2). The interface
+<span id="idx:pyfunc34:37"></span>[py_func/\[3,4\]](#py_func/3) and
+<span id="idx:pydot45:38"></span>[py_dot/\[4,5\]](#py_dot/4) on top of
+<span id="idx:pycall2:39"></span>[py_call/2](#py_call/2). The interface
 for calling Prolog from Python is settled on the five primitives
 described in [section 5](#sec:5).
 
@@ -1939,7 +1939,7 @@ known differences.
 
   - SWI-Prolog represents Phyton dicts as Prolog dicts. XSB uses a term
     py( k:v, ... ), where the `py()` wrapper is optional. The predicate
-    <span id="idx:pyisdict1:40"></span>[py\_is\_dict/1](#py_is_dict/1)
+    <span id="idx:pyisdict1:40"></span>[py_is_dict/1](#py_is_dict/1)
     may be used to test that a Prolog term represents a Python dict. The
     predicates <span id="idx:values3:41"></span>[values/3](#values/3),
     <span id="idx:keys2:42"></span>[keys/2](#keys/2),
@@ -1950,12 +1950,12 @@ known differences.
     an instance of [janus.Term()](#janus.Term\(\)).
   - SWI-Prolog represents Python object references as a *blob*. XSB uses
     a term. The predicate
-    <span id="idx:pyisobject1:45"></span>[py\_is\_object/1](#py_is_object/1)
+    <span id="idx:pyisobject1:45"></span>[py_is_object/1](#py_is_object/1)
     may be used to test that a Prolog term refers to a Python object. In
     XSB, the user *must* call
-    <span id="idx:pyfree1:46"></span>[py\_free/1](#py_free/1) when done
+    <span id="idx:pyfree1:46"></span>[py_free/1](#py_free/1) when done
     with some object. In SWI-Prolog, either
-    <span id="idx:pyfree1:47"></span>[py\_free/1](#py_free/1) may be
+    <span id="idx:pyfree1:47"></span>[py_free/1](#py_free/1) may be
     used or the object may be left to the Prolog (atom) garbage
     collector.
   - Exceptions are represented differently, both representing Python
@@ -1992,164 +1992,164 @@ code.
 ## Bibliography
 
   - <span id="DBLP:series/lncs-0001S23">**Andersen & Swift,
-    2023**</span>  
+    2023**</span>
     Carl Andersen and Theresa Swift. The janus system: A bridge to new
     prolog applications. In David Scott Warren, Verónica Dahl, Thomas
     Eiter, Manuel V. Hermenegildo, Robert A. Kowalski, and Francesca
     Rossi, editors, *Prolog: The Next 50 Years*, volume 13900 of
     *Lecture Notes in Computer Science*, pages 93--104. Springer, 2023.
   - <span id="DBLP:journals/corr/abs-2308-15893">**Swift & Andersen,
-    2023**</span>  
+    2023**</span>
     Theresa Swift and Carl Andersen. The janus system: Multi-paradigm
     programming in prolog and python. *CoRR*, abs/2308.15893, 2023.
 
 # <span id="document-index">Index</span>
 
-  - ?  
-    between/3  
+  - ?
+    between/3
     [5.2](#idx:between3:19)
 
-  - call\_delays/2  
+  - call_delays/2
     [5.4.1](#idx:calldelays2:20)
 
-  - call\_residual\_program/2  
+  - call_residual_program/2
     [5.4.1](#idx:callresidualprogram2:21)
 
-  - [items/2](#items/2)  
+  - [items/2](#items/2)
     [12](#idx:items2:31) [12](#idx:items2:34) [12](#idx:items2:44)
 
-  - [janus.apply()](#janus.apply\(\))  
-    [janus.apply.close()](#janus.apply.close\(\))  
-    [janus.apply.next()](#janus.apply.next\(\))  
-    [janus.apply\_once()](#janus.apply_once\(\))  
-    [janus.attach\_engine()](#janus.attach_engine\(\))  
-    [janus.cmd()](#janus.cmd\(\))  
-    [janus.consult()](#janus.consult\(\))  
-    [janus.detach\_engine()](#janus.detach_engine\(\))  
-    [janus.engine()](#janus.engine\(\))  
-    [janus.once()](#janus.once\(\))  
-    [janus.prolog()](#janus.prolog\(\))  
-    [janus.query()](#janus.query\(\))  
-    [janus.query.close()](#janus.query.close\(\))  
-    [janus.query.next()](#janus.query.next\(\))  
-    [janus.query\_once()](#janus.query_once\(\))  
-    [key/2](#key/2)  
+  - [janus.apply()](#janus.apply\(\))
+    [janus.apply.close()](#janus.apply.close\(\))
+    [janus.apply.next()](#janus.apply.next\(\))
+    [janus.apply_once()](#janus.apply_once\(\))
+    [janus.attach_engine()](#janus.attach_engine\(\))
+    [janus.cmd()](#janus.cmd\(\))
+    [janus.consult()](#janus.consult\(\))
+    [janus.detach_engine()](#janus.detach_engine\(\))
+    [janus.engine()](#janus.engine\(\))
+    [janus.once()](#janus.once\(\))
+    [janus.prolog()](#janus.prolog\(\))
+    [janus.query()](#janus.query\(\))
+    [janus.query.close()](#janus.query.close\(\))
+    [janus.query.next()](#janus.query.next\(\))
+    [janus.query_once()](#janus.query_once\(\))
+    [key/2](#key/2)
     [12](#idx:key2:33) [12](#idx:key2:43)
 
-  - [keys/2](#keys/2)  
+  - [keys/2](#keys/2)
     [12](#idx:keys2:42)
 
-  - message\_to\_string/2  
+  - message_to_string/2
     [5.6](#idx:messagetostring2:26)
 
-  - once/1  
+  - once/1
     [1](#idx:once1:3) [5](#idx:once1:14) [5](#idx:once1:16)
 
-  - parent/2  
+  - parent/2
     [5](#idx:parent2:15)
 
-  - print/1  
+  - print/1
     [5.5](#idx:print1:24)
 
-  - print\_message/2  
+  - print_message/2
     [4.1](#idx:printmessage2:12) [5](#idx:printmessage2:17)
 
-  - [py\_add\_lib\_dir/1](#py_add_lib_dir/1)  
-    [py\_add\_lib\_dir/2](#py_add_lib_dir/2)  
-    [py\_call/1](#py_call/1)  
-    [py\_call/2](#py_call/2)  
+  - [py_add_lib_dir/1](#py_add_lib_dir/1)
+    [py_add_lib_dir/2](#py_add_lib_dir/2)
+    [py_call/1](#py_call/1)
+    [py_call/2](#py_call/2)
     [1](#idx:pycall2:1) [2](#idx:pycall2:7) [4.1](#idx:pycall2:11)
     [12](#idx:pycall2:39)
 
-  - [py\_call/3](#py_call/3)  
+  - [py_call/3](#py_call/3)
     [2](#idx:pycall3:4)
 
-  - py\_call/\[2,3\]  
+  - py_call/\[2,3\]
     [12](#idx:pycall23:35)
 
-  - [py\_dot/4](#py_dot/4)  
-    [py\_dot/5](#py_dot/5)  
-    py\_dot/\[4,5\]  
+  - [py_dot/4](#py_dot/4)
+    [py_dot/5](#py_dot/5)
+    py_dot/\[4,5\]
     [12](#idx:pydot45:38)
 
-  - [py\_free/1](#py_free/1)  
+  - [py_free/1](#py_free/1)
     [3.1](#idx:pyfree1:10) [12](#idx:pyfree1:46) [12](#idx:pyfree1:47)
 
-  - [py\_func/3](#py_func/3)  
-    [py\_func/4](#py_func/4)  
-    py\_func/\[3,4\]  
+  - [py_func/3](#py_func/3)
+    [py_func/4](#py_func/4)
+    py_func/\[3,4\]
     [12](#idx:pyfunc34:37)
 
-  - [py\_gil\_owner/1](#py_gil_owner/1)  
+  - [py_gil_owner/1](#py_gil_owner/1)
     [6.2](#idx:pygilowner1:30)
 
-  - [py\_initialize/3](#py_initialize/3)  
-    [py\_is\_dict/1](#py_is_dict/1)  
+  - [py_initialize/3](#py_initialize/3)
+    [py_is_dict/1](#py_is_dict/1)
     [12](#idx:pyisdict1:40)
 
-  - [py\_is\_object/1](#py_is_object/1)  
+  - [py_is_object/1](#py_is_object/1)
     [5.5](#idx:pyisobject1:23) [12](#idx:pyisobject1:45)
 
-  - [py\_iter/2](#py_iter/2)  
+  - [py_iter/2](#py_iter/2)
     [1](#idx:pyiter2:2) [3.1](#idx:pyiter2:9)
 
-  - [py\_iter/3](#py_iter/3)  
+  - [py_iter/3](#py_iter/3)
     [2](#idx:pyiter3:5)
 
-  - py\_iter/\[2,3\]  
+  - py_iter/\[2,3\]
     [12](#idx:pyiter23:36)
 
-  - [py\_lib\_dirs/1](#py_lib_dirs/1)  
-    [py\_module/2](#py_module/2)  
-    [py\_obj\_dict/2](#py_obj_dict/2)  
-    [py\_obj\_dir/2](#py_obj_dir/2)  
-    [py\_pp/1](#py_pp/1)  
-    [py\_pp/2](#py_pp/2)  
-    [py\_pp/3](#py_pp/3)  
-    [py\_setattr/3](#py_setattr/3)  
-    [py\_shell/0](#py_shell/0)  
+  - [py_lib_dirs/1](#py_lib_dirs/1)
+    [py_module/2](#py_module/2)
+    [py_obj_dict/2](#py_obj_dict/2)
+    [py_obj_dir/2](#py_obj_dir/2)
+    [py_pp/1](#py_pp/1)
+    [py_pp/2](#py_pp/2)
+    [py_pp/3](#py_pp/3)
+    [py_setattr/3](#py_setattr/3)
+    [py_shell/0](#py_shell/0)
     [5](#idx:pyshell0:18)
 
-  - [py\_version/0](#py_version/0)  
+  - [py_version/0](#py_version/0)
     [4.2](#idx:pyversion0:13)
 
-  - [py\_with\_gil/1](#py_with_gil/1)  
+  - [py_with_gil/1](#py_with_gil/1)
     [6](#idx:pywithgil1:28)
 
-  - [values/3](#values/3)  
+  - [values/3](#values/3)
     [12](#idx:values3:32) [12](#idx:values3:41)
 
-  - with\_mutex/2  
+  - with_mutex/2
     [6.2](#idx:withmutex2:29)
 
-  - write\_canonical/1  
+  - write_canonical/1
     [2](#idx:writecanonical1:6) [2](#idx:writecanonical1:8)
     [5.4.1](#idx:writecanonical1:22) [5.5](#idx:writecanonical1:25)
     [5.6](#idx:writecanonical1:27)
 
-  - Exception  
+  - Exception
     [5.6](#sec:5.6)
 
-  - F  
-    fractions:Fraction  
+  - F
+    fractions:Fraction
     [2](#sec:2)
 
-  - P  
-    janus.PrologError  
+  - P
+    janus.PrologError
     [5.6](#sec:5.6)
 
-  - [janus.PrologError()](#janus.PrologError\(\))  
-    [janus.PrologError.\_\_repr\_\_()](#janus.PrologError.__repr__\(\))  
-    [janus.PrologError.\_\_str\_\_()](#janus.PrologError.__str__\(\))  
-    Q  
-    [janus.Query()](#janus.Query\(\))  
-    T  
-    janus.Term  
+  - [janus.PrologError()](#janus.PrologError\(\))
+    [janus.PrologError.__repr__()](#janus.PrologError.__repr__\(\))
+    [janus.PrologError.__str__()](#janus.PrologError.__str__\(\))
+    Q
+    [janus.Query()](#janus.Query\(\))
+    T
+    janus.Term
     [5.6](#sec:5.6)
 
-  - [janus.Term()](#janus.Term\(\))  
-    [janus.Term.\_\_repr\_\_()](#janus.Term.__repr__\(\))  
-    [janus.Term.\_\_str\_\_()](#janus.Term.__str__\(\))  
-    [janus.TruthVal()](#janus.TruthVal\(\))  
-    U  
+  - [janus.Term()](#janus.Term\(\))
+    [janus.Term.__repr__()](#janus.Term.__repr__\(\))
+    [janus.Term.__str__()](#janus.Term.__str__\(\))
+    [janus.TruthVal()](#janus.TruthVal\(\))
+    U
     [janus.Undefined()](#janus.Undefined\(\))
