@@ -5,6 +5,10 @@
 :- use_module(library(main)).
 :- use_module(library(pure_input)).
 :- use_module(library(dcg/high_order)).
+:- use_module(library(apply)).
+:- use_module(library(lists)).
+:- use_module(library(option)).
+:- use_module(library(prolog_code)).
 
 :- initialization(main, main).
 
@@ -349,14 +353,14 @@ emit_code(List) -->
 toc_anchor(_, Title, Anchor) :-
     string_lower(Title, TitleLwr),
     string_codes(TitleLwr, Codes),
-    maplist(to_hyphen, [0'\s|Codes], Hyphenated),
+    convlist(to_hyphen, [0'\s|Codes], Hyphenated),
     phrase(single_hyphen(SHCodes), Hyphenated),
     string_codes(Anchor, SHCodes).
 
 to_hyphen(C, C) :-
     code_type(C, alnum),
     !.
-to_hyphen(_, 0'-).
+to_hyphen(0'\s, 0'-).
 
 single_hyphen([0'-|T]) -->
     "-", !, hyphens,

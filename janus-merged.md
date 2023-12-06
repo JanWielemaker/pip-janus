@@ -2,16 +2,16 @@
 
 # Contents
 
-  - [Predicate py_func/3, py_func/4](#-predicate-py-func-3-py-func-4)
-  - [Predicate py_dot/3, py_dot/4, py_dot/5](#-predicate-py-dot-3-py-dot-4-py-dot-5)
-  - [Predicate py_call/1, py_call/2, py_call/3](#-predicate-py-call-1-py-call-2-py-call-3)
-  - [Predicate py_free/1](#-predicate-py-free-1)
-  - [Predicate py_pp/1, py_pp/2, py_pp/3](#-predicate-py-pp-1-py-pp-2-py-pp-3)
-  - [Predicate py_add_lib_dir/1, py_add_lib_dir/2](#-predicate-py-add-lib-dir-1-py-add-lib-dir-2)
-  - [Predicate py_lib_dirs/1](#-predicate-py-lib-dirs-1)
-  - [Predicate values/3](#-predicate-values-3)
-  - [Predicate py_is_object/1](#-predicate-py-is-object-1)
-  - [Predicate items/2, key/2, keys/2](#-predicate-items-2-key-2-keys-2)
+  - [Predicate py_func/3, py_func/4](#-predicate-pyfunc3-pyfunc4)
+  - [Predicate py_dot/3, py_dot/4, py_dot/5](#-predicate-pydot3-pydot4-pydot5)
+  - [Predicate py_call/1, py_call/2, py_call/3](#-predicate-pycall1-pycall2-pycall3)
+  - [Predicate py_free/1](#-predicate-pyfree1)
+  - [Predicate py_pp/1, py_pp/2, py_pp/3](#-predicate-pypp1-pypp2-pypp3)
+  - [Predicate py_add_lib_dir/1, py_add_lib_dir/2](#-predicate-pyaddlibdir1-pyaddlibdir2)
+  - [Predicate py_lib_dirs/1](#-predicate-pylibdirs1)
+  - [Predicate values/3](#-predicate-values3)
+  - [Predicate py_is_object/1](#-predicate-pyisobject1)
+  - [Predicate items/2, key/2, keys/2](#-predicate-items2-key2-keys2)
 
 ## Predicate py_func/3, py_func/4
 
