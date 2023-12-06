@@ -7,3 +7,9 @@
 ## SWI conversion
 
     pandoc -t gfm -o janus-swi.md janus.html
+
+## Merging
+
+Currently only for Prolog predicates.
+
+    swipl tools/merge.pl --interleave janus-xsb.md janus-swi.md janus-merged.md
