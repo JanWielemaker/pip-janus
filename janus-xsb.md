@@ -298,7 +298,7 @@ provides full flexibility in handling both lazy and eager returns.*
 
 *Consider a file `range.py` that contains the following functions:*
 
-      def demo_yield(): 
+      def demo_yield():
         for i in range(10):
             yield i
 
@@ -543,11 +543,11 @@ viewpoint of Python types as follows:
 
 ## The Prolog-Python API
 
-`py_func(+Module,+Function,?Return)`  
-   
+`py_func(+Module,+Function,?Return)`
 
-`py_func(+Module,+Function,?Return,+Options)`  
-   
+
+`py_func(+Module,+Function,?Return,+Options)`
+
 Ensures that the Python module `Module` is loaded, and calls
 ` Module.Function` unifying the return of `Function` with ` Return`. As
 in Python, the arguments of `Function` may contain keywords but
@@ -646,11 +646,11 @@ Currently supported options are:
 In addition, errors thrown by Python are caught by XSB and re-thrown as
 `misc_error` errors.
 
-`py_dot(+ObjRef,+MethAttr,?Ret,+Prolog_Opts)`  
-   
+`py_dot(+ObjRef,+MethAttr,?Ret,+Prolog_Opts)`
 
-`py_dot(+ObjRef,+MethAttr,?Ret)`  
-   
+
+`py_dot(+ObjRef,+MethAttr,?Ret)`
+
 Applies a method to `ObjRef` or obtains an attribute value for `ObjRef`.
 As with `py_func/[3,4]`, `ObjRef` is a Python object reference in term
 form or a Python module. A Python object reference may be returned by
@@ -697,8 +697,8 @@ is as with `py_func/[3,4]`.
 In addition, errors thrown by Python are caught by XSB and re-thrown as
 `misc_error` errors.
 
-`py_setAttr(+ModObj,+Attr,+Val)`  
-   
+`py_setAttr(+ModObj,+Attr,+Val)`
+
 If `ModObj` is a module or an object, this command is equivalent to the
 Python
 
@@ -717,8 +717,8 @@ Python
 - If an error occurs when translating an argument of ` MethAttr` to
   Python the actions are as described for ` py_func/[3,4]`.
 
-`py_iter(+ModObj,+FuncMethAttr,Ret)`  
-   
+`py_iter(+ModObj,+FuncMethAttr,Ret)`
+
 `py_iter/2` takes as input to its first argument either a module in
 which the function `FuncMethAttr` will be called; or a Python object
 reference to which either the method `FuncMethAttr` will be applied or
@@ -739,11 +739,11 @@ over 1MB or so the use of `py_iter()` is recommended.
 Error cases are similar to `py_func/[3,4]` if `ModObj` is a module, and
 to `py_obj` if `ModObj` is a Python object reference.
 
-`py_call(+Form,-Ret,+Opts)`  
-   
+`py_call(+Form,-Ret,+Opts)`
 
-`py_call(+Form,Ret)`  
-   
+
+`py_call(+Form,-Ret)`
+
 `py_call/[2,3]` is alternate syntax for `py_func/[3,4]` and
 `py_dot/[3,4]`. Or perhaps it is the other way around.
 
@@ -762,8 +762,8 @@ data-reference="jns-examp:pycall">1.7</a>.
 Options and Error cases are the same as for `py_func/[3,4]` and
 `py_dot/[3,4]`.
 
-`py_free(+ObjRef)`  
-   
+`py_free(+ObjRef)`
+
 In general when `janus` bi-translates between Python objects and Prolog
 terms it performs a copy: this has the advantage that each system can
 perform its own memory management independently of the other. The
@@ -779,14 +779,14 @@ reclaimed, and this is done through ` py_free/1`.
 
   - `type_error`
 
-`py_pp(+Stream,+Term,+Options)`  
-   
+`py_pp(+Stream,+Term,+Options)`
 
-`py_pp(+Stream,+Term)`  
-   
 
-`py_pp(Term)`  
-   
+`py_pp(+Stream,+Term)`
+
+
+`py_pp(+Term)`
+
 Pretty prints a `janus` Python term. By default, the term is translated
 to Python and makes use of Python’s `pprint.pformat()`, which produces a
 string that is then returned to Prolog and written out. If the option
@@ -804,17 +804,17 @@ is pretty-printed as
        'French',
        'GERMAN'
       ]
-    } 
+    }
 
 Such pretty printing can be useful for developing applications such as
 with `jns_elastic`, the `janus` Elasticsearch interface which
 communicates with Elasticsearch via (sometimes large) JSON terms.
 
-`py_add_lib_dir(+Path,+FirstLast)`  
-   
+`py_add_lib_dir(+Path,+FirstLast)`
 
-`py_add_lib_dir(+Path)`  
-   
+
+`py_add_lib_dir(+Path)`
+
 The convenience and compatibility predicate `py_add_lib_dir/2` allows
 the user to add a path to the end of `sys.path` (if ` FirstLast = last`
 or the beginning (if `FirstLast = fiast`. `py_add_lib_dir/1` acts as
@@ -823,13 +823,13 @@ or the beginning (if `FirstLast = fiast`. `py_add_lib_dir/1` acts as
 When adding to the end `sys.path` this predicate acts similarly to XSB’s
 `add_lib_dir/1`, which adds Prolog library directories.
 
-`py_lib_dirs(?Path)`  
-   
+`py_lib_dirs(?Path)`
+
 This convenience and compatibility predicate returns the current Python
 library directories as a Prolog list.
 
-`values(+Dict,+Path,?Val)`  
-   
+`values(+Dict,+Path,?Val)`
+
 Convenience predicate and compatibility to obtain a value from a
 (possibly nested) Prolog dictionary. The goal
 
@@ -843,21 +843,21 @@ is equivalent to the Python expression `D[key1]` while
 
 There are no error conditions associated with this predicate.
 
-`py_is_object(+Obj)`  
-   
+`py_is_object(+Obj)`
+
 Succeeds if `Obj` is a Python object reference and fails otherwise.
 Different Prologs that implement Janus will have different
 representations of Python objects, so this predicate should be used to
 determine whether a term is a Python Object.
 
-`keys(+Dict,?Keys)`  
-   
+`keys(+Dict,?Keys)`
 
-`key(+Dict,?Keys)`  
-   
 
-`items(+Dict,?Items)`  
-   
+`key(+Dict,?Keys)`
+
+
+`items(+Dict,?Items)`
+
 Convenience predicates (for the inveterate Python programmer) to obtain
 a list of keys or items from a Prolog dictionary. There are no error
 conditions associated with these predicates.
@@ -865,8 +865,8 @@ conditions associated with these predicates.
 The predicate `key/2` returns each key of a dictionary on backtracking,
 rather than returning all keys as one list, as in `keys/2`.
 
-`obj_dict(+ObjRef,-Dict)`  
-   
+`obj_dict(+ObjRef,-Dict)`
+
 Given a reference to a Python object as `ObjRef`, this predicate returns
 the dictionary of attributes of `ObjRef` in `Dict`. If no `__dict__`
 attribute is associated with `ObjRef` the predicate fails.
@@ -876,8 +876,8 @@ attribute is associated with `ObjRef` the predicate fails.
 
       py_dot(Obj,'__dict__',Dict).
 
-`obj_dir(+ObjRef,-Dir)`  
-   
+`obj_dir(+ObjRef,-Dir)`
+
 Given a reference to a Python object as `ObjRef`, this predicate returns
 the list of attributes of `ObjRef` in `Dir`. If no `__dir__` attribute
 is associated with `ObjRef` the predicate fails.
@@ -927,15 +927,15 @@ though useful, query support.
 
 ##### Queries to Word Embeddings
 
-`load_model(+BinPath,+Name)`  
-   
+`load_model(+BinPath,+Name)`
+
 Loads a word embedding model in fastText binary form, the path of which
 is `BinPath`. `Name` is an atom to be used as a Prolog referent. By
 associating different names with different models it is easy to make use
 of more than one word embedding model at a time.
 
-`get_nearest_neighbors(+Name,+Word,-Neighbors)`  
-   
+`get_nearest_neighbors(+Name,+Word,-Neighbors)`
+
 Returns the 10 nearest neighbors of `Word` in the model ` Name`. This
 feature is useful for determining other words that are distributionally
 similar to `Word`. `Neighbors` is a list of tuples (terms with functor
@@ -946,14 +946,14 @@ embeddings , `Word` need not have been in the training set of the model.
 This feature can sometimes be useful for correcting misspellings and
 other purposes.
 
-`cosine_similarity(+Name,+WordList,-SimMat)`  
-   
+`cosine_similarity(+Name,+WordList,-SimMat)`
+
 For a model `Name` and `WordList` a list of atoms of length $N$, this
 predicate returns a (cosine) similarity matrix of dimension
 $N \times N$.
 
-`get_word_vec(+Name,+Word,-Vec)`  
-   
+`get_word_vec(+Name,+Word,-Vec)`
+
 Returns a the vector for `Word` in the model `Name` as a Prolog list of
 floats. In general, if a computation on word vectors can be done wholly
 on the Python side, it is much faster to do so, rather than manipulating
@@ -974,7 +974,7 @@ example Python module `jns_fasttext`:
 
     py_func(jns_fasttext, fasttext_predict(pyObj(p0x7faca3428510),
            'janus is a really useful addition to XSB! But language detection
-            requires a longer string than I usually want to type.'),Lang).  
+            requires a longer string than I usually want to type.'),Lang).
 
 returns the detected language and confidence value, which in this case
 
@@ -1078,11 +1078,11 @@ literal’s string as a Prolog atom, the second argument is its datatype,
 and the third argument its language. If the data type or language are
 not included, the argument will be null. As examples:
 
-    "That Seventies Show"^^<http://www.w3.org/2001/XMLSchema#string> 
+    "That Seventies Show"^^<http://www.w3.org/2001/XMLSchema#string>
 
 is returned as
 
-    -('"That Seventies Show"','<http://www.w3.org/2001/XMLSchema#string>',) 
+    -('"That Seventies Show"','<http://www.w3.org/2001/XMLSchema#string>',)
 
 while
 
@@ -1090,7 +1090,7 @@ while
 
 is returned as
 
-    -('"That Seventies Show"',,en) 
+    -('"That Seventies Show"',,en)
 
 The file `jns_rdflib.P` contains predicates `test_nt/0`, `test_ttl/0`,
 `test_nq/0` to test reading and writing. Note that Python options needed
@@ -1162,14 +1162,14 @@ into RAM only as needed for query evaluation.
 
 `jns_rdflib` offers two main predicates for use with `rdflib` HDT:
 
-`hdt_load(+Store,-Obj)`  
-   
+`hdt_load(+Store,-Obj)`
+
 Initializes `rdflib` for the HDT file `Store` and creates a `rdflib`
 graph in which to store the results of queries. ` Obj` is the Python
 reference to the data store.
 
-`hdt_query(?Arg1,?Arg2,?Arg3,-List)`  
-   
+`hdt_query(?Arg1,?Arg2,?Arg3,-List)`
+
 Allows a user to query a HDT store using Prolog-like syntax and returns
 the results of the query in `List`. For instance the query
 
@@ -1206,7 +1206,7 @@ one another.
 Reflecting this sequence, the predicate `load_model/1` is used to load a
 SpaCy model into the XSB/Python session:
 
-    load_model(en_core_web_sm) 
+    load_model(en_core_web_sm)
 
 On the Python side the identifier `en_core_web_sm` is associated with a
 `Language` object, and using this association the same atom can be used
@@ -1245,11 +1245,11 @@ and the text can then be sent to one of several language models.
 
 ##### `jns_spacy` Predicates
 
-`load_model(+Model,+Options)`  
-   
+`load_model(+Model,+Options)`
 
-`load_model(+Model)`  
-   
+
+`load_model(+Model)`
+
 Loads the SpaCy model `Model` and associates the Prolog atom ` Model`
 with the corresponding SpaCy `Language` object. Currently, the only form
 for `Options` is a (possibly empty) list of terms of the form
@@ -1259,44 +1259,44 @@ to add to the NLP pipeline of the SpaCy Language object `Model`.
 `load_model(Model)` is a convenience predicate for
 ` load_model(Model,[])`.
 
-`proc_string(+Model,+Atom,-Doc,+Options)`  
-   
+`proc_string(+Model,+Atom,-Doc,+Options)`
 
-`proc_string(+Model,+Atom,-Doc)`  
-   
+
+`proc_string(+Model,+Atom,-Doc)`
+
 Processes the text `Atom` using the model `Model` and unifying `Doc`
 with the resulting SpaCy `Document` object. The only option currently
 allowed in `Options` is ` token_assert`, which in addition asserts
 information from `Doc` into a Prolog graph (after removing information
 about any previous dependency graphs).
 
-`proc_string(+Model,+File,-Doc)` is a convenience predicate for  
+`proc_string(+Model,+File,-Doc)` is a convenience predicate for
 `proc_string(+Model,+Atom,-Doc,[])`.
 
 If `Model` has not been loaded, `proc_string/[3,4]` will try to load it
 before processing. If `Model` cannot be found, a Python `NameError`
 error is thrown as an XSB miscellaneous error.
 
-`proc_file(+Model,+File,-Doc,+Options)`  
-   
+`proc_file(+Model,+File,-Doc,+Options)`
 
-`proc_file(+Model,+File,-Doc)`  
-   
+
+`proc_file(+Model,+File,-Doc)`
+
 Opens `File` and processes its contents using the model ` Model` and
 unifying `Doc` with the resulting SpaCy ` Document` object. `File` is
 opened in Python, and the stream for `File` is closed automatically. The
 only option currently allowed in `Options` is `token_assert`, which in
 addition asserts information from `Doc` into a Prolog graph.
 
-`proc_file(+Model,+File,-Doc)` is a convenience predicate for  
+`proc_file(+Model,+File,-Doc)` is a convenience predicate for
 `proc_file(+Model,+File,-Doc,[])`.
 
 If `Model` has not been loaded, `proc_file/[3,4]` will try to load it
 before processing. If `Model` cannot be found, a Python `NameError`
 error is thrown as an XSB miscellaneous error.
 
-`token_assert(+Doc)`  
-   
+`token_assert(+Doc)`
+
 This predicate accesses the SpaCy Document object `Doc`, then queries
 the dependency graph and other information from `Doc`, and asserts it to
 Prolog as a graph (after retracting information from any previous
@@ -1351,49 +1351,49 @@ don’t need to be materialized in Prolog. For instance the code for
 `show_all_trees/0` in `jns_spacy.P` contains code for constructing
 sentences, subtrees of a given token and so on.
 
-`get_text(Index,Text)`  
-   
+`get_text(Index,Text)`
 
-`get_lemma(Index,Lemma)`  
-   
 
-`get_pos(Index,Pos)`  
-   
+`get_lemma(Index,Lemma)`
 
-`get_tag(Index,Tag)`  
-   
 
-`get_dep(Index,Dep)`  
-   
+`get_pos(Index,Pos)`
 
-`get_ner_type(Index,NER)`  
-   
 
-`token_info(Index,Text,Lemma,Pos,Tag,Dep,Ent_type)`  
-   
+`get_tag(Index,Tag)`
+
+
+`get_dep(Index,Dep)`
+
+
+`get_ner_type(Index,NER)`
+
+
+`token_info(Index,Text,Lemma,Pos,Tag,Dep,Ent_type)`
+
 Various convenience predicates for accessing `token_info_raw/7`.
 `token_info/7` is a convenience predicate that calls ` token_info_raw/7`
 and filters out spaces and punctuation. ` get_text/2`, `get_lemma/2`
 etc. get the appropriate field from a `token_info_raw/7` fact indexed by
 `Index`.
 
-`show_all_trees()`  
-   
+`show_all_trees()`
+
 Given a SpaCy graph asserted to Prolog as described above,
 ` show_all_trees/0` navigates the graph, and for each sentence in the
 graph converts the dependency graph to a tree and prints it out. This
 predicate is useful for reviewing parses, and its code in ` jns_spacy.P`
 can be modified and repurposed for other needed functionality.
 
-`sentence_roots(-RootList)`  
-   
+`sentence_roots(-RootList)`
+
 Returns a list of the dependency graph nodes (i.e., ` token_info_raw/7`
 terms) that are roots of a sentence in the Prolog dependency graph. By
 backtracking through `RootList`, sentence by sentence processing can be
 done for a document.
 
-`dependent_tokens(+Root,-Toklist)`  
-   
+`dependent_tokens(+Root,-Toklist)`
+
 Given the index of token `Root`, returns a sorted list of the tokens
 dependent on `Root`. If `Root` is the root of a sentence, `Toklist` will
 be the words in the sentence; if ` Root` is the root of a noun phrase,
@@ -1550,8 +1550,8 @@ into.
 
 #### `jns_wd`: Querying Wikidata via HDT
 
-`wd_query(?Arg1,?Arg2,?Arg3,?Lang)`  
-   
+`wd_query(?Arg1,?Arg2,?Arg3,?Lang)`
+
 This predicate queries the HDT version of Wikidata and unifies the
 various arguments with Wikidata triples that match the input, so that
 the caller may backtrack through all results. `Arg1` and `Arg3` can
@@ -1575,30 +1575,30 @@ can be turned on by asserting ` jns_wd:use_wd_filter`. Of course, since
 filtering may be application-specific, Pnodes can be added to or deleted
 from ` jns_wd_ignore.P` as desired.
 
-`wd_get_labels(+Qnode,-Label,?Lang)`  
-   
+`wd_get_labels(+Qnode,-Label,?Lang)`
+
 Backtracks through all preferred labels
 (`http://www.w3.org/2004/02/skos/core#prefLabel`), and other labels
-(`http://www.w3.org/2004/02/skos/core#prefLabel` and  
+(`http://www.w3.org/2004/02/skos/core#prefLabel` and
 `http://www.w3.org/2000/01/rdf-schema#label`) whose language unifies
 with `Lang`.
 
-`wd_get_label(+Qnode,-Label,?Lang)`  
-   
+`wd_get_label(+Qnode,-Label,?Lang)`
+
 Tries to find a good label for `Qnode` that unifies with ` Lang`, first
 trying for a preferred label, then
 `http://www.w3.org/2004/02/skos/core#prefLabel`, and finally other
-labels (`http://www.w3.org/2004/02/skos/core#prefLabel` and  
+labels (`http://www.w3.org/2004/02/skos/core#prefLabel` and
 `http://www.w3.org/2000/01/rdf-szvchema#label`.
 
-`wd_instance_of(+SCNode,-CNode)`  
-   
+`wd_instance_of(+SCNode,-CNode)`
 
-`wd_subclass_of(+InstNode,-CNode)`  
-   
 
-`wd_parent_of(+Node,-Parent)`  
-   
+`wd_subclass_of(+InstNode,-CNode)`
+
+
+`wd_parent_of(+Node,-Parent)`
+
 Because it is called with the first argument bound, ` wd_subclass_of/2`
 and `wd_instance_of/2` both go up the Wikidata ontology dag and should
 not have any problems with speed, since upward traversals are supported
@@ -1628,14 +1628,14 @@ usage.[^12] So for applications that take place on servers or that use
 Wikidata extensively the `hdt` approach for `jns_rdflib` is best; for
 other uses `jns_wdi` may be more convenient.
 
-`wdi_get_dict(+Qnode,-Dict))`  
-   
+`wdi_get_dict(+Qnode,-Dict))`
 
-`wdi_get_entity(+Qnode,-EDict))`  
-   
 
-`wdi_sparql_query(+Qnode,+PropertyNode,-Ret)`  
-   
+`wdi_get_entity(+Qnode,-EDict))`
+
+
+`wdi_sparql_query(+Qnode,+PropertyNode,-Ret)`
+
 
 ### Other Interfaces, Examples and Demos
 
@@ -1665,8 +1665,8 @@ Python package ` xmltodict` [^15] provides a simple implementation of
 this based on Python’s `Expat` XML parser, and so retains the advantages
 of `Expat` in terms of reliability, Unicode support and speed.
 
-`xmldict_read(+File,-Dict)`  
-   
+`xmldict_read(+File,-Dict)`
+
 Given an XML file `File`, this predicate opens `File`, parses its
 contents, transforms the contents into a dictionary, and unifies `Dict`
 with dictionary.
@@ -1685,13 +1685,13 @@ relatively expensive, it is best to check whether a word is known via
 
 The two main predicates are:
 
-`sp_known(+Word)`  
-   
+`sp_known(+Word)`
+
 Succeeds if `Word` is known to the `pyspellchecker` dictionary, and
 fails otherwise.
 
-`sp_correct(+WordIn,-WordOut)`  
-   
+`sp_correct(+WordIn,-WordOut)`
+
 If `Word` has a reasonable minimum-edit distance to a word *word$_1$* in
 the `pyspellchecker` dictionary this predicate succeeds, unifying
 `WordOut` to *word$_1$*; otherwise the predicate fails.
@@ -1970,7 +1970,7 @@ instance by calling the function in a block such as the following:*
 
 *where `display_xsb_error()` is a call to the function:*
 
-    def display_xsb_error(err):    
+    def display_xsb_error(err):
             print('Exception Caught from XSB: ')
             print('      ' + jns.get_error_message())
 
@@ -2000,7 +2000,7 @@ atom `p(a)` was `true`, `false`,,or `undefined` in the Well-Founded
 Model. In `janus-py` such a query could most easily be made via the
 `janus-py` function `jns.cmd()`*
 
-    >>> jns.cmd('jns_test','p','a')  
+    >>> jns.cmd('jns_test','p','a')
 
 *Since `jns.cmd` does not return any answer bindings, it returns the
 truth value directly to Python, rather than as part of a tuple. However,
@@ -2231,7 +2231,7 @@ Volume 1, chapter 5) for instance if the answers are to be displayed in
 a UI or sent to an ASP solver. In such a case, the keyword argument
 `truth_vals` can be set to `DELAY_LISTS`, so that the fragment*
 
-    for ans in jns.query('jns_test','test_nd(d,Y)',truth_vals=DELAY_LISTS) 
+    for ans in jns.query('jns_test','test_nd(d,Y)',truth_vals=DELAY_LISTS)
        print(ans)
 
 *prints out*
@@ -2247,8 +2247,8 @@ this by serializing a term $T$ as follows:*
 <div class="tabbing">
 
 *foooof̄oooof̄oooof̄oooof̄oooooooooooooooooooooōoō if $T$ is a non-list term
-$T=f(arg_1,...,arg_n)$:  
-$serialize(T) = ($plgterm,$serialize(rg_1),...,serialize(arg_n))$  
+$T=f(arg_1,...,arg_n)$:
+$serialize(T) = ($plgterm,$serialize(rg_1),...,serialize(arg_n))$
 else $serialize(T) = T$*
 
 </div>
@@ -2260,7 +2260,7 @@ literals.*
 value *undefined*, the keyword argument `truth_vals` could be set to
 `NO_TRUTHVALS`. For instance*
 
-    for ans in jns.query('jns_test','test_nd(a,Y)',truth_vals=NO_TRUTHVALS) 
+    for ans in jns.query('jns_test','test_nd(a,Y)',truth_vals=NO_TRUTHVALS)
        print(ans)
 
 *prints out*
@@ -2305,8 +2305,8 @@ Formatted this return is:*
          [
           ((e,5),2),((e,5),2),
           ((d,4),1),((c,3),1),
-          ((b,2),1),((a,1),1) 
-          ((a,11),1),((a,111),1) 
+          ((b,2),1),((a,1),1)
+          ((a,11),1),((a,111),1)
          ]
 
 *Note that each answer in the comprehension is a 2-ary tuple, the first
@@ -2323,7 +2323,7 @@ iterable and can be used as any other object of its type, for example:*
 
     >>> for answer,tv in jns.comp('jns_test','test_comp',vars=2):
     ...     print('answer = '+str(answer)+' ; tv = '+str(tv))
-    ... 
+    ...
     answer = ('e', 5) ; tv = 2
     answer = ('e', 5) ; tv = 2
     answer = ('d', 4) ; tv = 1
@@ -2355,7 +2355,7 @@ calls the XSB goal `jns_callbacks:test_json(X)` as usual. The file
 This directory contains many other examples including those discussed in
 this chapter. In particular, `jns_callbacks.P` contains the predicate:
 
-    test_json(Ret):- 
+    test_json(Ret):-
        pyfunc(xp_json,
               prolog_loads('{"name":"Bob","languages": ["English","Fench","GERMAN"]}'),
               Ret).
@@ -2441,12 +2441,12 @@ represented as a list, implies a given constraint:*
 
     :- import {}/1,entailed/1 from clpr.
 
-      check_entailed(Constraints,Entailed):- 
+      check_entailed(Constraints,Entailed):-
          set_up_constraints(Constraints),
          entailed(Entailed).
 
       set_up_constraints([]).
-      set_up_constraints([Constr,Rest]):- 
+      set_up_constraints([Constr,Rest]):-
          {Constr},
          set_up_constraints(Rest).
 
@@ -2496,8 +2496,8 @@ When describing Python calls to Prolog tn this section, we sometimes
 assume for clarity that the calling environment has executed the
 statement `import janus_xsb as jns`.
 
-`cmd(module,pred,*args)`  
-   
+`cmd(module,pred,*args)`
+
 Allows Python to execute a Prolog goal `Goal` containing no variables.
 Each argument in `Goal` corresponds to an element in `args`, i.e., the
 input is translated to $module.pred(\overrightarrow{args})$, where
@@ -2521,8 +2521,8 @@ data-reference="sec:using-januspy">2.2</a>. If an error occurred during
 Prolog execution an Python error is set and the value `None` is
 returned.
 
-`apply_once(module,pred,*args,**kwargs)`  
-   
+`apply_once(module,pred,*args,**kwargs)`
+
 Allows Python to execute a Prolog query, the last argument of which is a
 variable. Unlike with `jns.apply()` the query should be deterimistic:
 otherwise only the query’s first answer is returned. If the number of
@@ -2554,8 +2554,8 @@ return and its truth value, (cf.
 Example <a href="#ex:truth-vals" data-reference-type="ref"
 data-reference="ex:truth-vals">2.7</a>).
 
-`query_once(query_string,**kwargs)`  
-   
+`query_once(query_string,**kwargs)`
+
 Calls the Prolog goal `query_string` which must be a well-formed Prolog
 atom `Atom` or `Module:Atom` where ` Module` is a Prolog module name.
 (No ending period should be a part of `query_string`.) As discussed in
@@ -2602,8 +2602,8 @@ default contains the truth value of the answer to `query_string`.
   Example <a href="#ex:query-once" data-reference-type="ref"
   data-reference="ex:query-once">2.6</a>.
 
-`apply(module,pred,*args)`  
-   
+`apply(module,pred,*args)`
+
 `jns.apply()` is called in the same manner as ` jns.apply_once()` but
 creates an instance of an iterator class that is used to backtrack
 through all solutions to the constructed goal. The Prolog goal invoked
@@ -2612,8 +2612,8 @@ an explicit `jns.close_query()` is called. See
 Section <a href="#sec:var-nd" data-reference-type="ref"
 data-reference="sec:var-nd">2.2.2.1</a> for examples of its use.
 
-`query(query_string,**kwargs)`  
-   
+`query(query_string,**kwargs)`
+
 The string-based `jns.query()` is called in the same manner as
 `jns.query_once()` but creates an instance of an iterator class that is
 used to backtrack through all solutions to the constructed goal. The
@@ -2622,8 +2622,8 @@ solutions, or when an explicit `jns.close_query()` is called. See
 Section <a href="#sec:nd-query" data-reference-type="ref"
 data-reference="sec:nd-query">2.2.2.2</a> for examples of its use.
 
-`close_query()`  
-   
+`close_query()`
+
 Closes a Prolog goal that was opened by `jns.apply()` or `jns.query()`.
 
 In general, a Prolog query opened by `jns.apply()` or ` jns.query()`
@@ -2641,15 +2641,15 @@ example is:
     for elt in MyIter:
       do something
       if condition:
-         jns.close_query()    
+         jns.close_query()
 
 TES: The name close_query() is arguably misleading, since it can be used
 both for jns.query() and jns.apply(). The name jns.close() is also
 ambiguous since it might be taken to mean that janus – and the
 underlying Prolog – should be closed.
 
-`comp(module,pred,*args,**kwargs)`  
-   
+`comp(module,pred,*args,**kwargs)`
+
 Allows Python to call Prolog to perform the equivalent of list or set
 comprehension. `jns.comp()` allows zero or more input arguments each
 containing a Python term ($\overrightarrow{input}$) and zero or more
@@ -2711,8 +2711,8 @@ passed to it.
     This option should only be used in situations where it is know that
     no answers will be *undefined*.
 
-`get_error_message()`  
-   
+`get_error_message()`
+
 If a Prolog exception was raised by the previous call to Prolog,
 ` get_error_message()` returns the Prolog exception message as a Python
 Unicode string. See
@@ -2726,11 +2726,11 @@ These predicates for managing the Prolog session are usually defined in
 terms of other predicates in the `janus-py` API, and are included for
 convenience or compatibility.
 
-`consult(File)`  
-   
+`consult(File)`
 
-`ensure_loaded(File)`  
-   
+
+`ensure_loaded(File)`
+
 Convenience functions for loading and/or compiling Prolog files. In XSB,
 they are defined as
 
@@ -2744,13 +2744,13 @@ Note that a given Prolog file can be compiled and/or loaded into the
 running Python-Prolog session (via `consult()` or ` ensure_loaded()`),
 edited and then repeatedly recompiled and reloaded without problems.
 
-`prolog_paths()`  
-   
+`prolog_paths()`
+
 Convenience function to return a list of all current Prolog library
 paths (Prolog’s equivalent of Python’s `sys.path`).
 
-`add_prolog_path(Paths)`  
-   
+`add_prolog_path(Paths)`
+
 Convenience function to add one or more Prolog library paths designated
 as a list of strings. This function calls Prolog’s equivalent of
 Python’s `sys.path.append()`) and is defined as:
@@ -2888,7 +2888,7 @@ Python per second in various contexts. For the predicate
 - And finally, the row “return a large list in a single call “ tests the
   size of a list that can be returned in one second from the function
 
-      jns.apply_once('jns_test','prolog_makelist',N)    
+      jns.apply_once('jns_test','prolog_makelist',N)
 
   where `prolog_makelist(N,List)` creates a list of size `N` and unifies
   it with `List`.
