@@ -2,18 +2,18 @@
 
 # Contents
 
-  - [Predicate py_func/3, py_func/4](#py_func]
-  - [Predicate py_dot/3, py_dot/4, py_dot/5](#py_dot]
-  - [Predicate py_call/1, py_call/2, py_call/3](#py_call]
-  - [Predicate py_free/1](#py_free]
-  - [Predicate py_pp/1, py_pp/2, py_pp/3](#py_pp]
-  - [Predicate py_add_lib_dir/1, py_add_lib_dir/2](#py_add_lib_dir]
-  - [Predicate py_lib_dirs/1](#py_lib_dirs]
-  - [Predicate values/3](#values]
-  - [Predicate py_is_object/1](#py_is_object]
-  - [Predicate items/2, key/2, keys/2](#items,key,keys]
+  - [Predicate py_func/3, py_func/4](#-predicate-py-func-3-py-func-4)
+  - [Predicate py_dot/3, py_dot/4, py_dot/5](#-predicate-py-dot-3-py-dot-4-py-dot-5)
+  - [Predicate py_call/1, py_call/2, py_call/3](#-predicate-py-call-1-py-call-2-py-call-3)
+  - [Predicate py_free/1](#-predicate-py-free-1)
+  - [Predicate py_pp/1, py_pp/2, py_pp/3](#-predicate-py-pp-1-py-pp-2-py-pp-3)
+  - [Predicate py_add_lib_dir/1, py_add_lib_dir/2](#-predicate-py-add-lib-dir-1-py-add-lib-dir-2)
+  - [Predicate py_lib_dirs/1](#-predicate-py-lib-dirs-1)
+  - [Predicate values/3](#-predicate-values-3)
+  - [Predicate py_is_object/1](#-predicate-py-is-object-1)
+  - [Predicate items/2, key/2, keys/2](#-predicate-items-2-key-2-keys-2)
 
-## Predicate py_func/3, py_func/4 {#py_func}
+## Predicate py_func/3, py_func/4
 
 ### XSB version
 
@@ -131,7 +131,7 @@ In addition, errors thrown by Python are caught by XSB and re-thrown as
         can use changing, e.g., `py_func(sys, path:append(dir), Return)`
         is accepted by this implementation, but not portable.
 
-## Predicate py_dot/3, py_dot/4, py_dot/5 {#py_dot}
+## Predicate py_dot/3, py_dot/4, py_dot/5
 
 ### XSB version
 
@@ -199,7 +199,7 @@ In addition, errors thrown by Python are caught by XSB and re-thrown as
       - Compatibility
         PIP. See `py_func/3` for details.
 
-## Predicate py_call/1, py_call/2, py_call/3 {#py_call}
+## Predicate py_call/1, py_call/2, py_call/3
 
 ### XSB version
 
@@ -337,7 +337,7 @@ Options and Error cases are the same as for `py_func/[3,4]` and
         `values/3`, `keys/2`, etc. provide portable
         access to the data in the dict.
 
-## Predicate py_free/1 {#py_free}
+## Predicate py_free/1
 
 ### XSB version
 
@@ -379,7 +379,7 @@ reclaimed, and this is done through ` py_free/1`.
         `py_free/1` leaks the Python object. Calling it
         twice may lead to undefined behavior.
 
-## Predicate py_pp/1, py_pp/2, py_pp/3 {#py_pp}
+## Predicate py_pp/1, py_pp/2, py_pp/3
 
 ### XSB version
 
@@ -431,7 +431,7 @@ communicates with Elasticsearch via (sometimes large) JSON terms.
       - Compatibility
         PIP
 
-## Predicate py_add_lib_dir/1, py_add_lib_dir/2 {#py_add_lib_dir}
+## Predicate py_add_lib_dir/1, py_add_lib_dir/2
 
 ### XSB version
 
@@ -470,7 +470,7 @@ When adding to the end `sys.path` this predicate acts similarly to XSB’s
         PIP. PIP only describes
         `py_add_lib_dir/1`.
 
-## Predicate py_lib_dirs/1 {#py_lib_dirs}
+## Predicate py_lib_dirs/1
 
 ### XSB version
 
@@ -487,7 +487,7 @@ library directories as a Prolog list.
       - Compatibility
         PIP
 
-## Predicate values/3 {#values}
+## Predicate values/3
 
 ### XSB version
 
@@ -515,7 +515,7 @@ There are no error conditions associated with this predicate.
         PIP. Note that this predicate handle a SWI-Prolog dict, a {k:v,
         ...} term as well as py({k:v, ...}.
 
-## Predicate py_is_object/1 {#py_is_object}
+## Predicate py_is_object/1
 
 ### XSB version
 
@@ -541,7 +541,7 @@ determine whether a term is a Python Object.
         reliable error is generated if the references has been freed.
         Portable applications can not rely on this.
 
-## Predicate items/2, key/2, keys/2 {#items,key,keys}
+## Predicate items/2, key/2, keys/2
 
 ### XSB version
 

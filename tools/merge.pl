@@ -229,9 +229,11 @@ blank_text -->
 
 pred(P) --> { P = pred(_) }, [P].
 hdr(H) --> { H = h(_,_) }, [H].
+hdr(H) --> { H = h(_,_,_) }, [H].
 
 ends_pred_descripton(pred(_)) => true.
 ends_pred_descripton(h(_,_)) => true.
+ends_pred_descripton(h(_,_,_)) => true.
 ends_pred_descripton(_) => fail.
 
 peek(H), [H] --> [H].
@@ -307,14 +309,15 @@ emit(preds(Preds, Description)) --> !,
     emit(Description).
 emit(predref(Name/Arity)) --> !,
     emit_code([Name,/,Arity]).
-emit(h(Level, Title, Anchor)) --> !,
+emit(h(Level, Title, _Anchor)) --> !,
     foreach(between(1,Level,_), "#"),
-    " ", atom(Title), " {#", atom(Anchor), "}".
+    " ", atom(Title).			% Not in gfm " {#", atom(Anchor), "}".
 emit(h(Level, Title)) --> !,
     foreach(between(1,Level,_), "#"),
     " ", atom(Title).
 emit(toc(Anchor, Title)) --> !,
-    "  - [", atom(Title), "](#", atom(Anchor), "]".
+    { toc_anchor(Anchor, Title, TheAnchor) },
+    "  - [", atom(Title), "](#", atom(TheAnchor), ")".
 
 emit_pred(pred(Head)) -->
     { Head =.. [Name|Args] },
@@ -341,6 +344,29 @@ emit_bold(Name) -->
 
 emit_code(List) -->
     "`", sequence(atom, List), "`".
+
+%toc_anchor(Anchor, _Title, Anchor).		% Not for gfm
+toc_anchor(_, Title, Anchor) :-
+    string_lower(Title, TitleLwr),
+    string_codes(TitleLwr, Codes),
+    maplist(to_hyphen, [0'\s|Codes], Hyphenated),
+    phrase(single_hyphen(SHCodes), Hyphenated),
+    string_codes(Anchor, SHCodes).
+
+to_hyphen(C, C) :-
+    code_type(C, alnum),
+    !.
+to_hyphen(_, 0'-).
+
+single_hyphen([0'-|T]) -->
+    "-", !, hyphens,
+    single_hyphen(T).
+single_hyphen([H|T]) --> [H], !, single_hyphen(T).
+single_hyphen([]) --> [].
+
+hyphens --> "-", !, hyphens.
+hyphens --> "".
+
 
 		 /*******************************
 		 *           INTERLEAVE		*
