@@ -353,7 +353,7 @@ emit_code(List) -->
 toc_anchor(_, Title, Anchor) :-
     string_lower(Title, TitleLwr),
     string_codes(TitleLwr, Codes),
-    convlist(to_hyphen, [0'\s|Codes], Hyphenated),
+    convlist(to_hyphen, Codes, Hyphenated),
     phrase(single_hyphen(SHCodes), Hyphenated),
     string_codes(Anchor, SHCodes).
 
