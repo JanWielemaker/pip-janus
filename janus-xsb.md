@@ -2726,10 +2726,10 @@ These predicates for managing the Prolog session are usually defined in
 terms of other predicates in the `janus-py` API, and are included for
 convenience or compatibility.
 
-`consult(File)`
+`consult(file)`
 
 
-`ensure_loaded(File)`
+`ensure_loaded(file)`
 
 Convenience functions for loading and/or compiling Prolog files. In XSB,
 they are defined as
