@@ -6,7 +6,10 @@
 
 ## SWI conversion
 
+Use `packages/swipy/janus.html` as produced by the normal build.
+
     pandoc -t gfm -o janus-swi.md janus.html
+	sed -i 's/\\_/_/g' janus-swi.md
 
 ## Merging
 

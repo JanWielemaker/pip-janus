@@ -1264,7 +1264,7 @@ crash the process**. Future versions may improve on that.
     [janus.query_once()](#janus.query_once\(\)).
 
   - <span id="janus.apply_once()">`Any` **janus.apply_once**(`module,
-    predicate, input ..., fail=obj`)</span>
+    predicate, *input, fail=obj`)</span>
     *Functional notation* style calling of a deterministic Prolog
     predicate. This calls `module:predicate(Input ... , Output)`, where
     `Input` are the Python `input` arguments converted to Prolog. On
@@ -1286,7 +1286,7 @@ crash the process**. Future versions may improve on that.
         PIP.
 
   - <span id="janus.cmd()">`Truth` **janus.cmd**(`module, predicate,
-    input ...`)</span>
+    *input`)</span>
     Similar to [janus.apply_once()](#janus.apply_once\(\)), but no
     argument for the return value is added. This function returns the
     *truth value* using the same conventions as the `truth` key in
@@ -1398,7 +1398,7 @@ using functional notation style. It returns a Python *iterator* that
 enumerates all answers.
 
   - <span id="janus.apply()">`apply` **janus.apply**(`module, predicate,
-    input ...`)</span>
+    *input`)</span>
     As [janus.apply_once()](#janus.apply_once\(\)), returning an
     *iterator* that returns individual answers. The example below uses
     Python *list comprehension* to create a list of integers from the
@@ -1576,7 +1576,7 @@ Similarly to the Python object reference (see
 the class allows Python to represent arbitrary Prolog data, typically
 with the intend to pass it back to Prolog.
 
-  - <span id="janus.Term()">`Term` **janus.Term**(`...`)</span>
+  - <span id="janus.Term()">`Term` **janus.Term**(`*args`)</span>
     Instances are never created explicitly by the user. An instance is
     created by handling a term `prolog(Term)` to the data conversion
     process. As a result, we can do
