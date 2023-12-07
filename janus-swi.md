@@ -759,8 +759,8 @@ path may be extended using [py_add_lib_dir/1](#py_add_lib_dir/1).
       - Compatibility
         PIP. See [py_call/2](#py_call/2) for notes. Note that, as this
         implementation is based on [py_call/2](#py_call/2), `Function`
-        can use changing, e.g., `py_func(sys, path:append(dir), Return)`
-        is accepted by this implementation, but not portable.
+        can use *chaining*, e.g., `py_func(sys, path:append(dir),
+        Return)` is accepted by this implementation, but not portable.
 
   - <span class="pred-tag">\[det\]</span><span id="py_dot/4">**py_dot**(`+Module,
     +ObjRef, +MethAttr, -Ret`)</span>
@@ -933,23 +933,23 @@ path may be extended using [py_add_lib_dir/1](#py_add_lib_dir/1).
     Add a directory to the Python module search path. In the second
     form, `Where` is one of `first` or `last`.
     [py_add_lib_dir/1](#py_add_lib_dir/1) adds the directory as
-    first. The property `sys:path` is not modified if it already
+    `last`. The property `sys:path` is not modified if it already
     contains `Dir`.
 
     `Dir` is in Prolog notation. The added directory is converted to an
-    absolute path using the OS notation.
+    absolute path using the OS notation using
+    <span class="pred-ext">prolog_to_os_filename/2</span>.
 
-    The form <span class="pred-ext">py_add_lib_dir/0</span> may only
-    be used as a *directive*, adding the directory from which the
-    current Prolog source is loaded at the head of the Python search
-    path. If [py_add_lib_dir/1](#py_add_lib_dir/1) or
-    [py_add_lib_dir/2](#py_add_lib_dir/2) are used in a directive and
-    the given directory is not absolute, it is resolved against the
-    directory holding the current Prolog source.
+    If `Dir` is a *relative* path, it is taken relative to Prolog source
+    file when used as a *directive* and relative to the process working
+    directory when called as a predicate.
 
       - Compatibility
-        PIP. PIP only describes
-        [py_add_lib_dir/1](#py_add_lib_dir/1).
+        PIP. Note that SWI-Prolog uses POSIX file conventions
+        internally, mapping to OS conventions inside the predicates that
+        deal with files or explicitly using
+        <span class="pred-ext">prolog_to_os_filename/2</span>. Other
+        systems may use the native file conventions in Prolog.
 
 ### <span id="sec:4.1"><span class="sec-nr">4.1</span> <span class="sec-title">Handling Python errors in Prolog</span></span>
 
