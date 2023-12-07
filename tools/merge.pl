@@ -480,6 +480,7 @@ toc_anchor(_, Title, Anchor) :-
 to_hyphen(C, C) :-
     code_type(C, alnum),
     !.
+to_hyphen(0'_, 0'_).
 to_hyphen(0'\s, 0'-).
 
 single_hyphen([0'-|T]) -->
