@@ -95,7 +95,8 @@ match(Term) --> swi_pred_def(Term).
 match(Term) --> swi_pred_ref(Term).
 match(Term) --> xsb_pred_def(Term).
 match(Term) --> md_header(Term).
-match(Term) --> match_python_func(Term), {writeln(Term)}.
+match(Term) --> swi_match_python_func(Term), {writeln(Term)}.
+match(Term) --> xsb_match_python_func(Term), {writeln(Term)}.
 
 %!  swi_pred_def(-Def)//
 
@@ -175,7 +176,7 @@ hlevel(3) --> "###".
 hlevel(2) --> "##".
 hlevel(1) --> "#".
 
-match_python_func(py_func(Return, Name, Args)) -->
+swi_match_python_func(py_func(Return, Name, Args)) -->
     optional("-", ""), whites,
     id_span_open(_),
     code_atom(Return), whites, bold_atom(QName), "(", code_atom(Args0), ")",
@@ -207,6 +208,38 @@ code_delim('`') --> "`".
 
 bold_delim('__') --> "__".
 bold_delim('**') --> "**".
+
+xsb_match_python_func(py_func('', Name, Args)) -->
+    "\n`", csym(Name), "(", py_args(ArgList), ")`\n",
+    !,
+    { atomic_list_concat(ArgList, ', ', Args) }.
+
+py_args([]), ")"--> ")", !.
+py_args([H|T]) -->
+    py_arg(H),
+    whites,
+    (   ","
+    ->  py_args(T)
+    ;   {T=[]}
+    ).
+
+py_arg(Arg) --> "**", py_arg_name(Name), !, {atom_concat('**', Name, Arg)}.
+py_arg(Arg) --> "*", py_arg_name(Name),  !, {atom_concat('*', Name, Arg)}.
+py_arg(Arg) --> py_arg_name(Arg), !.
+
+py_arg_name(Name) -->
+    sequence(lower, Codes),
+    { Codes \== [] ,
+      !,
+      atom_codes(Name, Codes)
+    }.
+
+lower(0'_) --> "_".
+lower(C) -->
+    [C],
+    { code_type(C, lower) }.
+
+
 
 
 		 /*******************************
