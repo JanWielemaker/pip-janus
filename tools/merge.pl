@@ -95,6 +95,7 @@ match(Term) --> swi_pred_def(Term).
 match(Term) --> swi_pred_ref(Term).
 match(Term) --> xsb_pred_def(Term).
 match(Term) --> md_header(Term).
+match(Term) --> match_python_func(Term), {writeln(Term)}.
 
 %!  swi_pred_def(-Def)//
 
@@ -102,12 +103,20 @@ swi_pred_def(pred(Head)) -->
     optional("-", ""),
     whites,
     optional(swi_tag(_Tag), ""),
-    "<span id=\"", string(_), "\">**", csym(Name), "**",
+    id_span_open(_),
+    "**", csym(Name), "**",
     swi_args(Args),
-    "</span>",
+    id_span_close,
     !,
     whites,
     { Head =.. [Name|Args] }.
+
+id_span_open(Id) -->
+    "<span id=\"", string(Codes), "\">",
+    !,
+    { atom_codes(Id, Codes) }.
+id_span_close -->
+    "</span>".
 
 swi_tag(Tag) -->
     "<span class=\"pred-tag\">",
@@ -166,6 +175,40 @@ hlevel(3) --> "###".
 hlevel(2) --> "##".
 hlevel(1) --> "#".
 
+match_python_func(py_func(Return, Name, Args)) -->
+    optional("-", ""), whites,
+    id_span_open(_),
+    code_atom(Return), whites, bold_atom(QName), "(", code_atom(Args0), ")",
+    id_span_close,
+    !,
+    { py_unqualify(QName, Name),
+      starts_lower(Name),
+      normalize_space(atom(Args), Args0)
+    }.
+
+py_unqualify(QName, Name) :-
+    atom_concat('janus.', Name, QName),
+    !.
+py_unqualify(Name, Name).
+
+starts_lower(Atom) :-
+    sub_atom(Atom, 0, 1, _, First),
+    char_type(First, lower).
+
+code_atom(Atom) -->
+    code_delim(S), string(Codes), code_delim(S), !,
+    { atom_codes(Atom, Codes) }.
+bold_atom(Atom) -->
+    bold_delim(S), string(Codes), bold_delim(S), !,
+    { atom_codes(Atom, Codes) }.
+
+code_delim('``') --> "``".
+code_delim('`') --> "`".
+
+bold_delim('__') --> "__".
+bold_delim('**') --> "**".
+
+
 		 /*******************************
 		 *            CLEANUP		*
 		 *******************************/
@@ -183,6 +226,10 @@ extract_structure(Contents, Structure, Options) :-
 
 structure([Preds|T]) -->
     preds(Preds),
+    !,
+    structure(T).
+structure([Funcs|T]) -->
+    funcs(Funcs),
     !,
     structure(T).
 structure([Hdr|T]) -->
@@ -210,7 +257,7 @@ preds(preds([H|T], Description)) -->
     string(Contents),
     skip_layout,
     peek(Next),
-    { ends_pred_descripton(Next),
+    { ends_descripton(Next),
       extract_structure(Contents, Description, [])
     }.
 
@@ -231,14 +278,41 @@ blank_text -->
     [s(Text)],
     { split_string(Text, "", " \t", [""]) }.
 
+%!  preds(-Term)//
+%
+%   Recognise a sequence of one or more Python functions
+
+funcs(funcs([H|T], Description)) -->
+    skip_layout,
+    func(H),
+    !,
+    funcs_or_empty(T),
+    string(Contents),
+    skip_layout,
+    peek(Next),
+    { ends_descripton(Next),
+      extract_structure(Contents, Description, [])
+    }.
+
+funcs_or_empty([H|T]) -->
+    skip_layout,
+    func(H),
+    !,
+    funcs_or_empty(T).
+funcs_or_empty([]) -->
+    optional(blank_text, []),
+    optional([nl(_)], []).
+
+func(F) --> { F = py_func(_,_,_) }, [F].
 pred(P) --> { P = pred(_) }, [P].
 hdr(H) --> { H = h(_,_) }, [H].
 hdr(H) --> { H = h(_,_,_) }, [H].
 
-ends_pred_descripton(pred(_)) => true.
-ends_pred_descripton(h(_,_)) => true.
-ends_pred_descripton(h(_,_,_)) => true.
-ends_pred_descripton(_) => fail.
+ends_descripton(pred(_)) => true.
+ends_descripton(py_func(_,_,_)) => true.
+ends_descripton(h(_,_)) => true.
+ends_descripton(h(_,_,_)) => true.
+ends_descripton(_) => fail.
 
 peek(H), [H] --> [H].
 
@@ -250,6 +324,7 @@ select_content(Structure0, Structure, Options) :-
 select_content(Structure, Structure, _).
 
 is_preds(preds(_Heads,_Content)).
+is_preds(funcs(_Heads,_Content)).
 
 
 
@@ -313,6 +388,10 @@ emit(preds(Preds, Description)) --> !,
     emit(Description).
 emit(predref(Name/Arity)) --> !,
     emit_code([Name,/,Arity]).
+emit(funcs(Funcs, Description)) --> !,
+    sequence(emit_func, "\n", Funcs),
+    "\n",
+    emit(Description).
 emit(h(Level, Title, _Anchor)) --> !,
     foreach(between(1,Level,_), "#"),
     " ", atom(Title).			% Not in gfm " {#", atom(Anchor), "}".
@@ -343,9 +422,17 @@ emit_arg(Arg) -->
     { Arg =.. [Mode,Name] },
     atom(Mode), atom(Name).
 
+emit_func(py_func(Return, Name, Args)) --> !,
+    "  - ", emit_code(Return), " ",
+    emit_bold(Name), "(", emit_code(Args), ")<br>".
+
 emit_bold(Name) -->
     "**", atom(Name), "**".
 
+emit_code(Code) -->
+    { atomic(Code) },
+    !,
+    "`", atom(Code), "`".
 emit_code(List) -->
     "`", sequence(atom, List), "`".
 
