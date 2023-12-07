@@ -697,7 +697,7 @@ is as with `py_func/[3,4]`.
 In addition, errors thrown by Python are caught by XSB and re-thrown as
 `misc_error` errors.
 
-`py_setAttr(+ModObj,+Attr,+Val)`
+`py_setattr(+ModObj,+Attr,+Val)`
 
 If `ModObj` is a module or an object, this command is equivalent to the
 Python
@@ -717,7 +717,7 @@ Python
 - If an error occurs when translating an argument of ` MethAttr` to
   Python the actions are as described for ` py_func/[3,4]`.
 
-`py_iter(+ModObj,+FuncMethAttr,Ret)`
+`py_iter(+ModObj,+FuncMethAttr,-Ret)`
 
 `py_iter/2` takes as input to its first argument either a module in
 which the function `FuncMethAttr` will be called; or a Python object
