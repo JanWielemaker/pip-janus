@@ -504,9 +504,9 @@ interleave(XSB, SWI, Structure) :-
            ], Structure).
 
 interleave([], _, [], []).
-interleave([preds(XSBPreds,XSBDoc)|XSB], SWI, Structure,
-           [toc(Anchor, Title)|TOC]) :-
-    include(about_same_preds(XSBPreds), SWI, AboutSame),
+interleave([First|XSB], SWI, Structure, [toc(Anchor, Title)|TOC]) :-
+    doc_obj(First, XSBPreds, _),
+    include(about_same_objs(XSBPreds), SWI, AboutSame),
     AboutSame \== [],
     !,
     append(AboutSame, Tail, SWIDocAndTail),
@@ -515,7 +515,7 @@ interleave([preds(XSBPreds,XSBDoc)|XSB], SWI, Structure,
     preds_title(AllPreds, Title, Anchor),
     Structure = [ h(2, Title, Anchor),
                   h(3, 'XSB version'),
-                  preds(XSBPreds,XSBDoc),
+                  First,
                   h(3, 'SWI-Prolog version')
                 | SWIDocAndTail
                 ],
@@ -523,15 +523,23 @@ interleave([preds(XSBPreds,XSBDoc)|XSB], SWI, Structure,
 interleave([_|XSB], SWI, Structure, TOC) :-
     interleave(XSB, SWI, Structure, TOC).
 
-about_same_preds(XSBPreds, preds(SWIPreds, _)) :-
+doc_obj(preds(Preds, Doc), Preds, Doc).
+doc_obj(funcs(Funcs, Doc), Funcs, Doc).
+
+about_same_objs(XSBPreds, preds(SWIPreds, _)) :-
     member(pred(H1), XSBPreds),
     pi_head(PI, H1),
     member(pred(H2), SWIPreds),
     pi_head(PI, H2),
     !.
+about_same_objs(XSBFuncs, funcs(SWIFuncs,_)) :-
+    member(py_func(_Ret1, Name, _Args1), XSBFuncs),
+    member(py_func(_Ret2, Name, _Args2), SWIFuncs),
+    !.
 
 preds_title(AllPreds, Title, Anchor) :-
     maplist(pred_pi, AllPreds, PIs),
+    !,
     sort(PIs, UPIs),
     maplist(term_string, UPIs, UPIStr),
     atomics_to_string(UPIStr, ", ", Preds),
@@ -539,6 +547,15 @@ preds_title(AllPreds, Title, Anchor) :-
     maplist(arg(1), UPIs, Names),
     sort(Names, UNames),
     atomics_to_string(UNames, ",", Anchor).
+preds_title(AllFuncs, Title, Anchor) :-
+    maplist(func_name, AllFuncs, Names),
+    !,
+    sort(Names, UNames),
+    atomics_to_string(UNames, ", ", Funcs),
+    format(string(Title), 'Python function ~s', [Funcs]),
+    atomics_to_string(UNames, ",", Anchor).
 
 pred_pi(pred(Head), PI) :-
     pi_head(PI, Head).
+
+func_name(py_func(_Ret, Name, _Args), Name).
