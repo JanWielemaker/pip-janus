@@ -753,25 +753,11 @@ communicates with Elasticsearch via (sometimes large) JSON terms.
       - Compatibility
         PIP
 
-## Predicate py_add_lib_dir/1, py_add_lib_dir/2
-
-### XSB version
-
-  - **py_add_lib_dir**(+Path, +FirstLast)<br>
-  - **py_add_lib_dir**(+Path)<br>
-The convenience and compatibility predicate `py_add_lib_dir/2` allows
-the user to add a path to the end of `sys.path` (if ` FirstLast = last`
-or the beginning (if `FirstLast = fiast`. `py_add_lib_dir/1` acts as
-`py_add_lib_dir/2` where ` FirstLast = last`.
-
-When adding to the end `sys.path` this predicate acts similarly to XSB’s
-`add_lib_dir/1`, which adds Prolog library directories.
-
-### SWI-Prolog version
+## Predicates py_add_lib_dir/1, py_add_lib_dir/2
 
   - **py_add_lib_dir**(+Dir)<br>
   - **py_add_lib_dir**(+Dir, +Where)<br>
-    Add a directory to the Python module search path. In the second
+    Add a directory to the Python module search path (`sys.path`). In the second
     form, `Where` is one of `first` or `last`.
     `py_add_lib_dir/1` adds the directory as
     `last`. The property `sys:path` is not modified if it already
