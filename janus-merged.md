@@ -797,10 +797,8 @@ library directories as a Prolog list.
 
 ## Predicate values/3
 
-### XSB version
-
   - **values**(+Dict, +Path, ?Val)<br>
-Convenience predicate and compatibility to obtain a value from a
+Convenience and compatibility predicate to obtain a value from a
 (possibly nested) Prolog dictionary. The goal
 
 `values(D,key1,V)`
@@ -813,19 +811,11 @@ is equivalent to the Python expression `D[key1]` while
 
 There are no error conditions associated with this predicate.
 
-### SWI-Prolog version
-
-  - **values**(+Dict, +Path, ?Val)<br>
-    Get the value associated with `Dict` at `Path`. `Path` is either a
-    single key or a list of keys.
-
-      - Compatibility
-        PIP. Note that this predicate handle a SWI-Prolog dict, a {k:v,
-        ...} term as well as py({k:v, ...}.
+      - PIP Compatibility Note
+        Note that in SWI Prolog this predicate handles dict with syntax {k:v,
+        ...} term as well as with syntax py({k:v, ...}.
 
 ## Predicate py_is_object/1
-
-### XSB version
 
   - **py_is_object**(+Obj)<br>
 Succeeds if `Obj` is a Python object reference and fails otherwise.
@@ -833,21 +823,21 @@ Different Prologs that implement Janus will have different
 representations of Python objects, so this predicate should be used to
 determine whether a term is a Python Object.
 
-### SWI-Prolog version
+      - PIP Compatibility Note
+      
+        Both the SWI-Prolog and the XSB implementations are safe in
+        the sense that an arbitrary term cannot be confused with a
+        Python object.
 
-  - **py_is_object**(@Term)<br>
-    True when `Term` is a Python object reference. Fails silently if
-    `Term` is any other Prolog term.
-
-      - Errors
-        `existence_error(py_object, Term)` is raised of `Term` is a
+	In SWI-Prolog a reliable error is generated if the references
+        has been freed.  Portable applications can not rely on this.
+        In SWI-Prolog the error is
+	
+      - `existence_error(py_object, Term)` is raised of `Term` is a
         Python object, but it has been freed using
         `py_free/1`.
-      - Compatibility
-        PIP. The SWI-Prolog implementation is safe in the sense that an
-        arbitrary term cannot be confused with a Python object and a
-        reliable error is generated if the references has been freed.
-        Portable applications can not rely on this.
+
+	
 
 ## Predicate items/2, key/2, keys/2
 
